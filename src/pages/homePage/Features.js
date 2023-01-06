@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CheckIcon, ClockIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const products = [
@@ -51,46 +51,81 @@ const products = [
   },
 ];
 
+const featuresArray = [
+  {
+    id: 1,
+    path: "/",
+    title: "View Building Plans Easily",
+    description:
+      "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in black",
+  },
+  {
+    id: 2,
+    path: "/",
+    title: "Add Different Measures",
+    description:
+      "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in black",
+  },
+  {
+    id: 3,
+    path: "/",
+    title: "Generate Spreadsheet Automatically",
+    description:
+      "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in black",
+  },
+];
+
 const Features = () => {
+  const [features, setFeatures] = useState(featuresArray);
+
   return (
     <div>
       {/* mobile view */}
       <section className="lg:col-span-7 block md:hidden">
-        <h2 className="mx-4 mt-16 mb-6 text-3xl font-extrabold tracking-tight sm:text-4xl text-gray-900">Features</h2>
-        <ul
-          role="list"
-          className=""
-        >
-          {products.map((product, productIdx) => (
+        <h2 className="mx-4 mt-16 mb-6 text-3xl font-extrabold tracking-tight sm:text-4xl text-gray-900">
+          Features
+        </h2>
+        <ul role="list" className="">
+          {features.map((feature, featureIdx) => (
             <li
-              key={product.id}
-              className="flex py-8 px-1 sm:py-10 m-3 rounded-lg bg-gray-400"
+              key={feature.id}
+              className="flex py-4 px-1 sm:py-6 m-3 rounded-lg bg-gray-200"
             >
-              {productIdx % 2 == 0 ? (
+              {featureIdx % 2 == 0 ? (
                 <>
-                  <div className="flex-shrink-">
+                  <div className="grid justify-center items-center flex-shrink-0">
                     <img
-                      src={product.imageSrc}
-                      alt={product.imageAlt}
+                      src={feature.imageSrc}
+                      alt={feature.imageAlt}
                       className="w-28 h-28 rounded-md object-center object-cover sm:w-48 sm:h-48"
                     />
                   </div>
 
-                  <div className="ml-4 flex-1 flex flex-col justify-between sm:ml-6 bg-red-300">
-                    <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                  <div className="ml-4 flex-1 flex ">
+                    <div className="relative grid justify-center items-center">
                       <div>
-                        <div className="flex justify-between">
-                          <h3 className="text-sm">
-                            <a
-                              href={product.href}
-                              className="font-medium text-gray-700 hover:text-gray-800"
-                            >
-                              {product.name}
-                            </a>
-                          </h3>
-                        </div>
-                        <div className="mt-1 flex text-sm">
-                          <p className="text-gray-500">{product.color}</p>
+                        <h3 className="text-center">
+                          <a
+                            href={feature.path}
+                            className="text-base sm:text-lg font-medium text-gray-900 hover:text-gray-800"
+                          >
+                            {feature.title}
+                          </a>
+                        </h3>
+
+                        <div className="mt-1 text-center">
+                          <p className="text-sm sm:text-base text-gray-500">
+                            {feature.description}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -98,29 +133,30 @@ const Features = () => {
                 </>
               ) : (
                 <>
-                  <div className="ml-2 flex-1 flex flex-col justify-between sm:ml-6 bg-red-300">
-                    <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                  <div className="ml-2 mr-4 flex-1 flex">
+                    <div className="relative grid justify-center items-center">
                       <div>
-                        <div className="flex justify-between">
-                          <h3 className="text-sm">
-                            <a
-                              href={product.href}
-                              className="font-medium text-gray-700 hover:text-gray-800"
-                            >
-                              {product.name}
-                            </a>
-                          </h3>
-                        </div>
-                        <div className="mt-1 flex text-sm">
-                          <p className="text-gray-500">{product.color}</p>
+                        <h3 className="text-center">
+                          <a
+                            href={feature.path}
+                            className="text-base sm:text-lg font-medium text-gray-900 hover:text-gray-800"
+                          >
+                            {feature.title}
+                          </a>
+                        </h3>
+
+                        <div className="mt-1 flex  text-center">
+                          <p className="text-sm sm:text-base text-gray-500">
+                            {feature.description}
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex-shrink-0">
+                  <div className="grid justify-center items-center flex-shrink-0">
                     <img
-                      src={product.imageSrc}
-                      alt={product.imageAlt}
+                      src={feature.imageSrc}
+                      alt={feature.imageAlt}
                       className="w-28 h-28 rounded-md object-center object-cover sm:w-48 sm:h-48"
                     />
                   </div>
@@ -135,34 +171,42 @@ const Features = () => {
       <div className="hidden md:block">
         <div className="max-w-2xl mx-auto py-5 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="flex items-center justify-between space-x-4">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-gray-900">Features</h2>
-            
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-gray-900 ">
+              Features
+            </h2>
           </div>
           <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
-            {products.map((product) => (
-              <div key={product.id} className="relative group">
-                <div className="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden bg-gray-100">
-                  <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
-                    className="object-center object-cover"
-                  />
+            {features.map((feature) => (
+              <div key={feature.id} className="relative group ">
+                <div className="aspect-w-4 aspect-h-3 grid justify-center rounded-lg overflow-hidden bg-gray-100">
+                  <div className="grid justify-center">
+                    <img
+                      src={feature.imageSrc}
+                      alt={feature.imageAlt}
+                      className="h-40 w-40"
+                    />
+                  </div>
+
                   <div
-                    className="flex items-end opacity-50 p-4 group-hover:opacity-100"
+                    className="flex items-end opacity-60 p-4 group-hover:opacity-100 transition ease-in-out delay-150 duration-300"
                     aria-hidden="true"
                   >
-                    <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900 space-x-8">
-                      <h3>
-                        <a href="#">
+                    <div className=" items-center justify-cente text-base font-medium text-gray-900 z-10">
+                      <h3 className="text-center">
+                        <div>
                           <span
                             aria-hidden="true"
-                            className="absolute inset-0"
+                            className="absolute"
                           />
-                          {product.name}
-                        </a>
+                          {feature.title}
+                        </div>
                       </h3>
-                      <p>{product.price}</p>
+                      <p className="text-sm text-center pt-2">
+                        {feature.description}
+                      </p>
                     </div>
+                    {/* gradient for feature card */}
+                    <div className="absolute inset-x-0 bottom-0 rounded-lg h-1/2 bg-gradient-to-t from-cyan-500 to-transparent opacity-40" />
                   </div>
                 </div>
               </div>
