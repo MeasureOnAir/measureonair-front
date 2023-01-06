@@ -93,7 +93,7 @@ const navigation = {
 const Footer = () => {
   return (
     <div>
-      <footer className="bg-white" aria-labelledby="footer-heading">
+      <footer className="bg-amber-400" aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
@@ -105,7 +105,7 @@ const Footer = () => {
                 src="https://tailwindui.com/img/logos/workflow-mark-gray-300.svg"
                 alt="Company name"
               />
-              <p className="text-gray-500 text-base">
+              <p className="text-gray-600 text-base">
                 Making the world a better place through constructing elegant
                 hierarchies.
               </p>
@@ -125,7 +125,7 @@ const Footer = () => {
             <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
               <div className="md:grid md:grid-cols-2 md:gap-8">
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                  <h3 className="text-sm font-semibold text-gray-700 tracking-wider uppercase">
                     Solutions
                   </h3>
                   <ul role="list" className="mt-4 space-y-4">
@@ -133,7 +133,7 @@ const Footer = () => {
                       <li key={item.name}>
                         <a
                           href={item.href}
-                          className="text-base text-gray-500 hover:text-gray-900"
+                          className="text-base text-gray-600 hover:text-gray-900"
                         >
                           {item.name}
                         </a>
@@ -142,7 +142,7 @@ const Footer = () => {
                   </ul>
                 </div>
                 <div className="mt-12 md:mt-0">
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                  <h3 className="text-sm font-semibold text-gray-700 tracking-wider uppercase">
                     Support
                   </h3>
                   <ul role="list" className="mt-4 space-y-4">
@@ -150,7 +150,7 @@ const Footer = () => {
                       <li key={item.name}>
                         <a
                           href={item.href}
-                          className="text-base text-gray-500 hover:text-gray-900"
+                          className="text-base text-gray-600 hover:text-gray-900"
                         >
                           {item.name}
                         </a>
@@ -161,7 +161,7 @@ const Footer = () => {
               </div>
               <div className="md:grid md:grid-cols-2 md:gap-8">
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                  <h3 className="text-sm font-semibold text-gray-700 tracking-wider uppercase">
                     Company
                   </h3>
                   <ul role="list" className="mt-4 space-y-4">
@@ -169,7 +169,7 @@ const Footer = () => {
                       <li key={item.name}>
                         <a
                           href={item.href}
-                          className="text-base text-gray-500 hover:text-gray-900"
+                          className="text-base text-gray-600 hover:text-gray-900"
                         >
                           {item.name}
                         </a>
@@ -178,7 +178,7 @@ const Footer = () => {
                   </ul>
                 </div>
                 <div className="mt-12 md:mt-0">
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                  <h3 className="text-sm font-semibold text-gray-700 tracking-wider uppercase">
                     Legal
                   </h3>
                   <ul role="list" className="mt-4 space-y-4">
@@ -186,7 +186,7 @@ const Footer = () => {
                       <li key={item.name}>
                         <a
                           href={item.href}
-                          className="text-base text-gray-500 hover:text-gray-900"
+                          className="text-base text-gray-600 hover:text-gray-900"
                         >
                           {item.name}
                         </a>
@@ -197,9 +197,9 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="mt-4 border-t border-gray-200 pt-4">
-            <p className="text-base text-gray-400 xl:text-center">
-              &copy; 2020 Workflow, Inc. All rights reserved.
+          <div className="mt-6 border-t border-gray-500 pt-4">
+            <p className="text-base text-gray-600 xl:text-center">
+              &copy; 2023 MeasureOnAir, Inc. All rights reserved.
             </p>
           </div>
         </div>
