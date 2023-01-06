@@ -17,7 +17,7 @@ const HeroSection = () => {
                     src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100"
                     alt="People working on laptops"
                   />
-                  <div className="absolute inset-0 bg-indigo-700 mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-primary-yellow200 mix-blend-multiply" />
                 </div>
                 {/* <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8"> */}
                 <div className="relative px-4 bottom-28">
@@ -25,11 +25,11 @@ const HeroSection = () => {
                     <span className="block text-white md:text-6xl lg:text-7xl">
                       Take control of your
                     </span>
-                    <span className="block text-indigo-200 pt-2">
+                    <span className="block text-amber-200 pt-2">
                       construction workload
                     </span>
                   </h1>
-                  <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
+                  <p className="mt-6 max-w-lg mx-auto text-center text-xl text-amber-200 sm:max-w-3xl">
                     Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
                     qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
                     occaecat fugiat aliqua.
@@ -38,16 +38,16 @@ const HeroSection = () => {
                     <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:gap-5">
                       <a
                         href="#"
-                        className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-500 bg-opacity-60 hover:bg-opacity-70 sm:px-8"
+                        className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8"
                       >
                         Get started
                       </a>
                     </div>
                   </div>
                 </div>
-                <div>
+                {/* <div>
                   <div class="h-16 bg-gradient-to-b from-cyan-500 to-transparent"></div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

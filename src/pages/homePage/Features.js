@@ -55,7 +55,7 @@ const featuresArray = [
   {
     id: 1,
     path: "/",
-    title: "View Building Plans Easily",
+    title: 'View Building Plans Easily',
     description:
       "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
     imageSrc:
@@ -91,14 +91,14 @@ const Features = () => {
     <div>
       {/* mobile view */}
       <section className="lg:col-span-7 block md:hidden">
-        <h2 className="mx-4 mt-16 mb-6 text-3xl font-extrabold tracking-tight sm:text-4xl text-gray-900">
+        <h2 className="mx-4 mt-0 mb-8 text-3xl font-extrabold tracking-tight sm:text-4xl text-gray-900">
           Features
         </h2>
         <ul role="list" className="">
           {features.map((feature, featureIdx) => (
             <li
               key={feature.id}
-              className="flex py-4 px-1 sm:py-6 m-3 rounded-lg bg-gray-200"
+              className="flex py-4 px-1 sm:py-6 m-3 my-5 rounded-lg bg-gray-100 shadow-lg"
             >
               {featureIdx % 2 == 0 ? (
                 <>
@@ -123,7 +123,7 @@ const Features = () => {
                         </h3>
 
                         <div className="mt-1 text-center">
-                          <p className="text-sm sm:text-base text-gray-500">
+                          <p className="text-base sm:text-base text-gray-500">
                             {feature.description}
                           </p>
                         </div>
@@ -170,15 +170,15 @@ const Features = () => {
       {/* desktop view - start */}
       <div className="hidden md:block">
         <div className="max-w-2xl mx-auto py-5 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
-          <div className="flex items-center justify-between space-x-4">
+          <div className="flex items-center justify-between space-x-4 mb-12">
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-gray-900 ">
               Features
             </h2>
           </div>
-          <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
+          <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-3">
             {features.map((feature) => (
               <div key={feature.id} className="relative group ">
-                <div className="aspect-w-4 aspect-h-3 grid justify-center rounded-lg overflow-hidden bg-gray-100">
+                <div className="aspect-w-4 aspect-h-3 grid justify-center rounded-lg overflow-hidden bg-gray-100 drop-shadow-lg">
                   <div className="grid justify-center">
                     <img
                       src={feature.imageSrc}
@@ -191,9 +191,9 @@ const Features = () => {
                     className="flex items-end opacity-60 p-4 group-hover:opacity-100 transition ease-in-out delay-150 duration-300"
                     aria-hidden="true"
                   >
-                    <div className=" items-center justify-cente text-base font-medium text-gray-900 z-10">
+                    <div className=" items-center justify-cente text-base font-medium text-gray-700 z-10">
                       <h3 className="text-center">
-                        <div>
+                        <div className="font-bold">
                           <span
                             aria-hidden="true"
                             className="absolute"
@@ -206,7 +206,7 @@ const Features = () => {
                       </p>
                     </div>
                     {/* gradient for feature card */}
-                    <div className="absolute inset-x-0 bottom-0 rounded-lg h-1/2 bg-gradient-to-t from-cyan-500 to-transparent opacity-40" />
+                    <div className="absolute inset-x-0 bottom-0 rounded-lg h-1/2 bg-gradient-to-t from-gray-600 to-transparent opacity-40" />
                   </div>
                 </div>
               </div>

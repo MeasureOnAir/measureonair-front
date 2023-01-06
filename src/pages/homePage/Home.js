@@ -10,12 +10,8 @@ import OurTeam from "./OurTeam";
 const Home = () => {
   return (
     <div className="overflow-hidden">
-      <div className="">
       <Navbar />
-
-      </div>
       <HeroSection />
-
       <Features />
       <OurPartners />
       <AboutUs />

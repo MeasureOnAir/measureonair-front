@@ -1,23 +1,23 @@
 import React from "react";
 
 const stats = [
-    { label: 'Founded', value: '2021' },
-    { label: 'Employees', value: '5' },
-    { label: 'Beta Users', value: '521' },
-    { label: 'Raised', value: '$25M' },
-  ]
+  { label: "Founded", value: "2021" },
+  { label: "Employees", value: "5" },
+  { label: "Beta Users", value: "521" },
+  { label: "Raised", value: "$25M" },
+];
 
 const AboutUs = () => {
   return (
     <div>
-      <div className="relative bg-white py-16 sm:py-24">
+      <div className="relative bg-transparent py-16 sm:py-24">
         <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start">
           <div className="relative sm:py-16 lg:py-0">
             <div
               aria-hidden="true"
               className="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen"
             >
-              <div className="absolute inset-y-0 right-1/2 w-full bg-gray-50 rounded-r-3xl lg:right-72" />
+              <div className="absolute inset-y-0 right-1/2 w-full bg-amber-700 rounded-r-3xl lg:right-72" />
               <svg
                 className="absolute top-8 left-1/2 -ml-3 lg:-right-8 lg:left-auto lg:top-12"
                 width={404}
@@ -59,8 +59,8 @@ const AboutUs = () => {
                   src="https://images.unsplash.com/photo-1521510895919-46920266ddb3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&fp-x=0.5&fp-y=0.6&fp-z=3&width=1440&height=1440&sat=-100"
                   alt=""
                 />
-                <div className="absolute inset-0 bg-indigo-500 mix-blend-multiply" />
-                <div className="absolute inset-0 bg-gradient-to-t from-indigo-600 via-indigo-600 opacity-90" />
+                <div className="absolute inset-0 bg-primary-yellow200 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-yellow300 via-primary-yellow200 opacity-90" />
                 <div className="relative px-8">
                   <div>
                     <img
@@ -72,14 +72,14 @@ const AboutUs = () => {
                   <blockquote className="mt-8">
                     <div className="relative text-lg font-medium text-white md:flex-grow">
                       <svg
-                        className="absolute top-0 left-0 transform -translate-x-3 -translate-y-2 h-8 w-8 text-indigo-400"
+                        className="absolute top-0 left-0 transform -translate-x-6 -translate-y-2 h-8 w-8 text-white"
                         fill="currentColor"
                         viewBox="0 0 32 32"
                         aria-hidden="true"
                       >
                         <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
                       </svg>
-                      <p className="relative">
+                      <p className="relative ml-3">
                         Tincidunt integer commodo, cursus etiam aliquam neque,
                         et. Consectetur pretium in volutpat, diam. Montes, magna
                         cursus nulla feugiat dignissim id lobortis amet.
@@ -87,7 +87,7 @@ const AboutUs = () => {
                     </div>
 
                     <footer className="mt-4">
-                      <p className="text-base font-semibold text-indigo-200">
+                      <p className="ml-3 text-base font-semibold text-yellow-200">
                         Sarah Williams, CEO at Workcation
                       </p>
                     </footer>
@@ -147,7 +147,7 @@ const AboutUs = () => {
                 ))}
               </dl>
               <div className="mt-10">
-                <a href="#" className="text-base font-medium text-indigo-600">
+                <a href="#" className="text-base font-medium text-primary-yellow300">
                   {" "}
                   Learn more about how we're changing the world{" "}
                   <span aria-hidden="true">&rarr;</span>{" "}

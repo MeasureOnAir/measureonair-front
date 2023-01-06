@@ -93,7 +93,7 @@ const navigation = {
 const Footer = () => {
   return (
     <div>
-      <footer className="bg-amber-400" aria-labelledby="footer-heading">
+      <footer className="bg-primary-yellow200" aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
