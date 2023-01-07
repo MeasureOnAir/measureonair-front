@@ -23,17 +23,39 @@ const canvasNavbarElementsArray = [
   { id: 4, title: "Export", path: "#", selected: false },
 ];
 
+const profileDropdown = [
+  { id: 1, title: "Your Profile", path: "#" },
+  { id: 1, title: "Settings", path: "#" },
+  { id: 1, title: "Sign out", path: "#" },
+];
+
 const Navbar = () => {
-  const [user, setUser] = useState("abc");
-  const [navbarElements, setNavbarElements] = useState(
-    canvasNavbarElementsArray
-  );
+  const [user, setUser] = useState("lahiru");
+  const [navbarElements, setNavbarElements] = useState(navbarElementsArray);
   const [selectedElement, setSelectedElement] = useState("");
+  const [profileElements, setProfileElements] = useState(profileDropdown);
+  const [isNavbarLight, setIsNavbarLight] = useState(true);
+
+  const onScroll = () => {
+    if (window.scrollY >= window.screen.height - 200) {
+      setIsNavbarLight(false);
+    } else {
+      setIsNavbarLight(true);
+    }
+  };
+
+  window.addEventListener("scroll", onScroll);
 
   return (
     <Disclosure
       as="nav"
-      className="fixed w-full top-0 z-30 bg-opacity-10 bg-primary-yellow200 shadow"
+      // className="fixed w-full top-0 z-30 bg-opacity-70 bg-yellow-600 dark:bg-secondary-gray600 shadow"
+      className={classNames(
+        isNavbarLight == true
+          ? "bg-yellow-400 bg-opacity-50 dark:bg-opacity-50 dark:bg-secondary-gray600 "
+          : "bg-opacity-100 bg-yellow-500 dark:bg-secondary-gray600 ",
+        "fixed w-full top-0 z-30 shadow transition ease-in-out delay-100 duration-200"
+      )}
     >
       {({ open }) => (
         <>
@@ -42,7 +64,7 @@ const Navbar = () => {
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-yellow200">
+                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-200 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-yellow200 dark:focus:ring-gray-600">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -56,23 +78,13 @@ const Navbar = () => {
                   </Disclosure.Button>
                 </div>
                 <div className="flex-shrink-0 flex items-center">
-                  {/* <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                    alt="Workflow"
-                  /> */}
-                  {/* <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                    alt="Workflow"
-                  /> */}
                   <img
-                    className="lg:block h-16 md:h-20 w-auto"
+                    className="lg:block h-16 md:h-[4.5rem] w-auto"
                     src={MOA_Horizontal_Logo}
                     alt="MOA-Logo"
                   />
                 </div>
-                <div className="hidden md:ml-6 md:flex md:space-x-8">
+                <div className="hidden md:ml-6 md:flex md:space-x-8 ">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
 
                   {navbarElements &&
@@ -84,8 +96,8 @@ const Navbar = () => {
                           className={classNames(
                             selectedElement == element.id
                               ? "border-b-2 border-primary-yellow200"
-                              : "hover:border-b-2 hover:border-gray-200",
-                            "text-gray-100 inline-flex items-center px-1 pt-1  text-sm font-medium"
+                              : "hover:border-b-2 hover:border-gray-200  dark:hover:border-gray-300 ",
+                            "text-gray-100 inline-flex items-center px-1 pt-1 text-sm font-medium "
                           )}
                           onClick={() => {
                             setSelectedElement(element.id);
@@ -104,10 +116,10 @@ const Navbar = () => {
                       {/* Profile dropdown */}
                       <Menu as="div" className="ml-3 relative">
                         <div>
-                          <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200">
+                          <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200 dark:focus:ring-gray-500 dark:bg-gray-400">
                             <span className="sr-only">Open user menu</span>
                             <img
-                              className="h-8 w-8 md:h-10 md:w-10 rounded-full ring-2 ring-amber-300 ring-offset-2"
+                              className="h-8 w-8 md:h-9 md:w-9 rounded-full ring-2 ring-amber-300 ring-offset-2 dark:ring-amber-500"
                               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                               alt=""
                             />
@@ -122,21 +134,42 @@ const Navbar = () => {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className=" origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <Menu.Item>
+                          <Menu.Items className=" origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-secondary-gray600 dark:ring-gray-500">
+                            {profileElements &&
+                              profileElements.map((element, idx) => {
+                                return (
+                                  <Menu.Item>
+                                    {({ active }) => (
+                                      <a
+                                        href="#"
+                                        className={classNames(
+                                          active
+                                            ? "bg-gray-100 dark:bg-transparent"
+                                            : "",
+                                          "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 dark:text-gray-300 dark:hover:bg-gray-700"
+                                        )}
+                                      >
+                                        {element.title}
+                                      </a>
+                                    )}
+                                  </Menu.Item>
+                                );
+                              })}
+
+                            {/* <Menu.Item>
                               {({ active }) => (
                                 <a
                                   href="#"
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100"
+                                    "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 dark:text-gray-300 dark:hover:bg-gray-700"
                                   )}
                                 >
                                   Your Profile
                                 </a>
                               )}
-                            </Menu.Item>
-                            <Menu.Item>
+                            </Menu.Item> */}
+                            {/* <Menu.Item>
                               {({ active }) => (
                                 <a
                                   href="#"
@@ -161,7 +194,7 @@ const Navbar = () => {
                                   Sign out
                                 </a>
                               )}
-                            </Menu.Item>
+                            </Menu.Item> */}
                           </Menu.Items>
                         </Transition>
                       </Menu>
@@ -172,7 +205,7 @@ const Navbar = () => {
                     <div className="flex-shrink-0">
                       <button
                         type="button"
-                        className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                        className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-gray-400 dark:hover:bg-gray-500 dark:bg-gray-600 "
                       >
                         <PlusSmallIcon
                           className="-ml-1 mr-2 h-5 w-5"
@@ -189,7 +222,7 @@ const Navbar = () => {
 
           {/* mobile view - sidebar */}
           <Disclosure.Panel className="md:hidden absolute w-full">
-            <div className="bg-primary-yellow200 rounded-lg py-4 mx-2 shadow-xl">
+            <div className="bg-primary-yellow200 rounded-lg py-4 mx-2 mt-1 shadow-xl dark:bg-secondary-gray600">
               <div className="pt-2 pb-3 space-y-1 ">
                 {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
 
@@ -201,8 +234,8 @@ const Navbar = () => {
                           as="a"
                           className={classNames(
                             selectedElement == element.id
-                              ? "bg-primary-yellow100 border-primary-yellow300 text-amber-700 block  mr-2 rounded-md"
-                              : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 ",
+                              ? "bg-primary-yellow100 border-primary-yellow300 text-amber-700 block mr-2 rounded-md dark:bg-gray-500 dark:text-gray-200"
+                              : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 dark:text-gray-300",
                             "block pl-3 pr-4 py-2 ml-1 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
                           )}
                           onClick={() => {
