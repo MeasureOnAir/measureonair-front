@@ -123,14 +123,14 @@ const OurTeam = () => {
     //   </div>
     // </div>
 
-    <div className="bg-white">
+    <div className="bg-transparent">
       <div className="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
         <div className="space-y-12 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-0">
           <div className="space-y-5 sm:space-y-4">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl dark:text-gray-200">
               About Us
             </h2>
-            <p className="text-xl text-gray-500">
+            <p className="text-xl text-gray-500 dark:text-gray-400">
               Nulla quam felis, enim faucibus proin velit, ornare id pretium.
               Augue ultrices sed arcu condimentum vestibulum suspendisse.
               Volutpat eu faucibus vivamus eget bibendum cras.
@@ -154,17 +154,21 @@ const OurTeam = () => {
                     <div className="sm:col-span-2">
                       <div className="space-y-4">
                         <div className="text-lg leading-6 font-medium space-y-1">
-                          <h3>{person.name}</h3>
-                          <p className="text-primary-yellow300">{person.role}</p>
+                          <h3 className="dark:text-gray-100">{person.name}</h3>
+                          <p className="text-primary-yellow300 dark:text-primary-yellow200">
+                            {person.role}
+                          </p>
                         </div>
                         <div className="text-lg">
-                          <p className="text-gray-500">{person.bio}</p>
+                          <p className="text-gray-500 dark:text-gray-300">
+                            {person.bio}
+                          </p>
                         </div>
                         <ul role="list" className="flex space-x-5">
                           <li>
                             <a
                               href={person.twitterUrl}
-                              className="text-gray-400 hover:text-gray-500"
+                              className="text-gray-400 hover:text-gray-500 hover:dark:text-gray-300"
                             >
                               <span className="sr-only">Twitter</span>
                               <svg
@@ -180,7 +184,7 @@ const OurTeam = () => {
                           <li>
                             <a
                               href={person.linkedinUrl}
-                              className="text-gray-400 hover:text-gray-500"
+                              className="text-gray-400 hover:text-gray-500 hover:dark:text-gray-300"
                             >
                               <span className="sr-only">LinkedIn</span>
                               <svg

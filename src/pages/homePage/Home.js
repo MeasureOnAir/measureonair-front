@@ -9,7 +9,7 @@ import OurTeam from "./OurTeam";
 
 const Home = () => {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden dark:bg-secondary-gray500">
       <Navbar />
       <HeroSection />
       <Features />

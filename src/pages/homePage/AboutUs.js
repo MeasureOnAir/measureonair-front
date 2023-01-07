@@ -17,7 +17,7 @@ const AboutUs = () => {
               aria-hidden="true"
               className="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen"
             >
-              <div className="absolute inset-y-0 right-1/2 w-full bg-amber-700 rounded-r-3xl lg:right-72" />
+              <div className="absolute inset-y-0 right-1/2 w-full bg-amber-700 rounded-r-3xl lg:right-72 dark:bg-secondary-gray700" />
               <svg
                 className="absolute top-8 left-1/2 -ml-3 lg:-right-8 lg:left-auto lg:top-12"
                 width={404}
@@ -39,7 +39,7 @@ const AboutUs = () => {
                       y={0}
                       width={4}
                       height={4}
-                      className="text-gray-200"
+                      className="text-gray-200 dark:text-gray-400"
                       fill="currentColor"
                     />
                   </pattern>
@@ -59,8 +59,8 @@ const AboutUs = () => {
                   src="https://images.unsplash.com/photo-1521510895919-46920266ddb3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&fp-x=0.5&fp-y=0.6&fp-z=3&width=1440&height=1440&sat=-100"
                   alt=""
                 />
-                <div className="absolute inset-0 bg-primary-yellow200 mix-blend-multiply" />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary-yellow300 via-primary-yellow200 opacity-90" />
+                <div className="absolute inset-0 bg-primary-yellow200 mix-blend-multiply dark:bg-gray-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-yellow300 via-primary-yellow200 opacity-90 dark:from-secondary-gray700 dark:via-secondary-gray600" />
                 <div className="relative px-8">
                   <div>
                     <img
@@ -100,10 +100,10 @@ const AboutUs = () => {
           <div className="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0">
             {/* Content area */}
             <div className="pt-12 sm:pt-16 lg:pt-20">
-              <h2 className="text-3xl text-gray-900 font-extrabold tracking-tight sm:text-4xl">
+              <h2 className="text-3xl text-gray-900 font-extrabold tracking-tight sm:text-4xl dark:text-gray-200">
                 On a mission to empower teams
               </h2>
-              <div className="mt-6 text-gray-500 space-y-6">
+              <div className="mt-6 text-gray-500 space-y-6 dark:text-gray-300">
                 <p className="text-lg">
                   Sagittis scelerisque nulla cursus in enim consectetur quam.
                   Dictum urna sed consectetur neque tristique pellentesque.
@@ -135,19 +135,19 @@ const AboutUs = () => {
                 {stats.map((stat) => (
                   <div
                     key={stat.label}
-                    className="border-t-2 border-gray-100 pt-6"
+                    className="border-t-2 border-gray-100 dark:border-gray-500 pt-6"
                   >
-                    <dt className="text-base font-medium text-gray-500">
+                    <dt className="text-base font-medium text-gray-500 dark:text-gray-300">
                       {stat.label}
                     </dt>
-                    <dd className="text-3xl font-extrabold tracking-tight text-gray-900">
+                    <dd className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
                       {stat.value}
                     </dd>
                   </div>
                 ))}
               </dl>
               <div className="mt-10">
-                <a href="#" className="text-base font-medium text-primary-yellow300">
+                <a href="#" className="text-base font-medium text-primary-yellow300 dark:text-primary-yellow200">
                   {" "}
                   Learn more about how we're changing the world{" "}
                   <span aria-hidden="true">&rarr;</span>{" "}
