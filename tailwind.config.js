@@ -9,6 +9,11 @@ module.exports = {
           yellow200: "#FFC60B",
           yellow300: "#FF8B00",
           pink300: "#D61C4E",
+          yellow2_100: '',
+          yellow2_200: '#feda4d',
+          yellow2_300: '#fdd533',
+          yellow2_400: '#fdcf1a',
+          yellow2_500: '#fdca00',
         },
         secondary: {
           black900: "#040303",
