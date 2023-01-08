@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { PlusSmallIcon } from "@heroicons/react/24/solid";
@@ -9,12 +9,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const navbarElementsArray = [
-  { id: 1, title: "Features", path: "#", selected: false },
-  { id: 2, title: "About Us", path: "#", selected: false },
-  { id: 3, title: "Our team", path: "#", selected: true },
-  { id: 4, title: "Our partners", path: "#", selected: false },
-];
+// const navbarElementsArray = [
+//   { id: 1, title: "Features", path: "#", selected: false },
+//   { id: 2, title: "About Us", path: "#", selected: false },
+//   { id: 3, title: "Our team", path: "#", selected: true },
+//   { id: 4, title: "Our partners", path: "#", selected: false },
+// ];
 
 const canvasNavbarElementsArray = [
   { id: 1, title: "New", path: "#", selected: false },
@@ -29,12 +29,18 @@ const profileDropdown = [
   { id: 1, title: "Sign out", path: "#" },
 ];
 
-const Navbar = () => {
+const Navbar = ({ navbarElementsArray }) => {
   const [user, setUser] = useState("lahiru");
-  const [navbarElements, setNavbarElements] = useState(navbarElementsArray);
+  const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
   const [selectedElement, setSelectedElement] = useState("");
   const [profileElements, setProfileElements] = useState(profileDropdown);
   const [isNavbarLight, setIsNavbarLight] = useState(true);
+  const [subMenuOpen, setSubMenuOpen] = useState(false);
+  const [open, setOpen] = useState();
+
+  useEffect(() => {
+    setNavbarElements(navbarElementsArray[1]);
+  }, [navbarElementsArray]);
 
   const onScroll = () => {
     if (window.scrollY >= window.screen.height - 200) {
@@ -43,17 +49,22 @@ const Navbar = () => {
       setIsNavbarLight(true);
     }
   };
-
   window.addEventListener("scroll", onScroll);
+
+  const onSubMenuHovered = () => {
+    console.log("called here");
+    setSubMenuOpen((prev) => !prev);
+  };
 
   return (
     <Disclosure
       as="nav"
       // className="fixed w-full top-0 z-30 bg-opacity-70 bg-yellow-600 dark:bg-secondary-gray600 shadow"
+
       className={classNames(
-        isNavbarLight == true
-          ? "bg-yellow-400 bg-opacity-50 dark:bg-opacity-50 dark:bg-secondary-gray600 "
-          : "bg-opacity-100 bg-yellow-500 dark:bg-secondary-gray600 ",
+        isNavbarLight == true && navbarElementsArray[0] == "home"
+          ? "bg-primary-yellow2_500 bg-opacity-50 text-gray-100 dark:bg-opacity-50 dark:bg-secondary-gray600 "
+          : "bg-opacity-90 bg-primary-yellow2_500 text-gray-600 dark:text-gray-100 dark:bg-secondary-gray600 ",
         "fixed w-full top-0 z-30 shadow transition ease-in-out delay-100 duration-200"
       )}
     >
@@ -78,11 +89,13 @@ const Navbar = () => {
                   </Disclosure.Button>
                 </div>
                 <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="lg:block h-16 md:h-[4.5rem] w-auto"
-                    src={MOA_Horizontal_Logo}
-                    alt="MOA-Logo"
-                  />
+                  <Link to={"/"}>
+                    <img
+                      className="lg:block h-16 md:h-[4.5rem] w-auto"
+                      src={MOA_Horizontal_Logo}
+                      alt="MOA-Logo"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden md:ml-6 md:flex md:space-x-8 ">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
@@ -90,21 +103,73 @@ const Navbar = () => {
                   {navbarElements &&
                     navbarElements.map((element, elementIdx) => {
                       return (
-                        <Link
-                          to={element.path}
+                        <div
                           key={element.id}
                           className={classNames(
                             selectedElement == element.id
-                              ? "border-b-2 border-primary-yellow200"
-                              : "hover:border-b-2 hover:border-gray-200  dark:hover:border-gray-300 ",
-                            "text-gray-100 inline-flex items-center px-1 pt-1 text-sm font-medium "
+                              ? "border-b-4 border-gray-500 dark:border-b-2 dark:border-primary-yellow2_500"
+                              : "hover:border-b-2 hover:border-gray-700 dark:hover:border-gray-300 ",
+                            "inline-flex items-center px-1 pt-1 text-sm font-medium"
                           )}
                           onClick={() => {
                             setSelectedElement(element.id);
                           }}
                         >
-                          {element.title} {element.selected}
-                        </Link>
+                          {/* rendering subItems from the navbar */}
+                          {element.subItems ? (
+                            <div>
+                              <Menu as="div" className="relative">
+                                <Menu.Button
+                                  className="text-sm focus:outline-none "
+                                  onMouseOver={() => onSubMenuHovered()}
+                                >
+                                  <span className="sr-only">
+                                    Open user menu
+                                  </span>
+                                  <div className="">{element.title}</div>
+                                </Menu.Button>
+
+                                <Transition
+                                  as={Fragment}
+                                  enter="transition ease-out duration-200"
+                                  enterFrom="transform opacity-0 scale-95"
+                                  enterTo="transform opacity-100 scale-100"
+                                  leave="transition ease-in duration-75"
+                                  leaveFrom="transform opacity-100 scale-100"
+                                  leaveTo="transform opacity-0 scale-95"
+                                >
+                                  <Menu.Items
+                                    static
+                                    className=" origin-top-left absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-secondary-gray600 dark:ring-gray-500"
+                                  >
+                                    {element.subItems &&
+                                      element.subItems.map((subItem, idx) => {
+                                        return (
+                                          <Menu.Item>
+                                            {({ active }) => (
+                                              <a
+                                                href="#"
+                                                className={classNames(
+                                                  active
+                                                    ? "bg-gray-100 dark:bg-transparent"
+                                                    : "",
+                                                  "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 hover:rounded-md dark:text-gray-300 dark:hover:bg-gray-700"
+                                                )}
+                                              >
+                                                {subItem.title}
+                                              </a>
+                                            )}
+                                          </Menu.Item>
+                                        );
+                                      })}
+                                  </Menu.Items>
+                                </Transition>
+                              </Menu>
+                            </div>
+                          ) : (
+                            <>{element.title}</>
+                          )}
+                        </div>
                       );
                     })}
                 </div>
@@ -155,46 +220,6 @@ const Navbar = () => {
                                   </Menu.Item>
                                 );
                               })}
-
-                            {/* <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href="#"
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                  )}
-                                >
-                                  Your Profile
-                                </a>
-                              )}
-                            </Menu.Item> */}
-                            {/* <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href="#"
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100"
-                                  )}
-                                >
-                                  Settings
-                                </a>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href="#"
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100"
-                                  )}
-                                >
-                                  Sign out
-                                </a>
-                              )}
-                            </Menu.Item> */}
                           </Menu.Items>
                         </Transition>
                       </Menu>
@@ -224,8 +249,6 @@ const Navbar = () => {
           <Disclosure.Panel className="md:hidden absolute w-full">
             <div className="bg-primary-yellow200 rounded-lg py-4 mx-2 mt-1 shadow-xl dark:bg-secondary-gray600">
               <div className="pt-2 pb-3 space-y-1 ">
-                {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-
                 {navbarElements &&
                   navbarElements.map((element, elementIdx) => {
                     return (
@@ -234,72 +257,73 @@ const Navbar = () => {
                           as="a"
                           className={classNames(
                             selectedElement == element.id
-                              ? "bg-primary-yellow100 border-primary-yellow300 text-amber-700 block mr-2 rounded-md dark:bg-gray-500 dark:text-gray-200"
-                              : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 dark:text-gray-300",
-                            "block pl-3 pr-4 py-2 ml-1 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
+                              ? "border-l-4 bg-primary-yellow100 border-primary-yellow300 text-amber-700 block mr-2 rounded-md dark:bg-gray-500 dark:text-gray-200"
+                              : "border-transparent mr-2 rounded-md text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300",
+                            "block pl-3 pr-4 py-2 ml-1 text-base font-medium sm:pl-5 sm:pr-6"
                           )}
                           onClick={() => {
                             setSelectedElement(element.id);
                           }}
                         >
-                          {element.title}
+                          {/* rendering subItems from the navbar */}
+                          {element.subItems ? (
+                            <div>
+                              <Menu as="div" className="relative">
+                                <Menu.Button
+                                  className="text-sm focus:outline-none "
+                                  onMouseOver={() => onSubMenuHovered()}
+                                >
+                                  <span className="sr-only">
+                                    Open user menu
+                                  </span>
+                                  <div className="">{element.title}</div>
+                                </Menu.Button>
+
+                                <Transition
+                                  as={Fragment}
+                                  enter="transition ease-out duration-200"
+                                  enterFrom="transform opacity-0 scale-95"
+                                  enterTo="transform opacity-100 scale-100"
+                                  leave="transition ease-in duration-75"
+                                  leaveFrom="transform opacity-100 scale-100"
+                                  leaveTo="transform opacity-0 scale-95"
+                                >
+                                  <Menu.Items
+                                    static
+                                    className=" origin-top-left absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-secondary-gray600 dark:ring-gray-500"
+                                  >
+                                    {element.subItems &&
+                                      element.subItems.map((subItem, idx) => {
+                                        return (
+                                          <Menu.Item>
+                                            {({ active }) => (
+                                              <a
+                                                href="#"
+                                                className={classNames(
+                                                  active
+                                                    ? "bg-gray-100 dark:bg-transparent"
+                                                    : "",
+                                                  "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 hover:rounded-md dark:text-gray-300 dark:hover:bg-gray-700"
+                                                )}
+                                              >
+                                                {subItem.title}
+                                              </a>
+                                            )}
+                                          </Menu.Item>
+                                        );
+                                      })}
+                                  </Menu.Items>
+                                </Transition>
+                              </Menu>
+                            </div>
+                          ) : (
+                            <>{element.title}</>
+                          )}
                         </Disclosure.Button>
                       </Link>
                     );
                   })}
               </div>
-
-              {/* profile details on sidebar */}
-
-              {/* <div className="pt-4 pb-3 border-t border-gray-200">
-                <div className="flex items-center px-4 sm:px-6">
-                  <div className="flex-shrink-0">
-                    <img
-                      className="h-10 w-10 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <div className="text-base font-medium text-gray-800">
-                      Tom Cook
-                    </div>
-                    <div className="text-sm font-medium text-gray-500">
-                      tom@example.com
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    className="ml-auto flex-shrink-0 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-                </div>
-                <div className="mt-3 space-y-1">
-                  <Disclosure.Button
-                    as="a"
-                    href="#"
-                    className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
-                  >
-                    Your Profile
-                  </Disclosure.Button>
-                  <Disclosure.Button
-                    as="a"
-                    href="#"
-                    className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
-                  >
-                    Settings
-                  </Disclosure.Button>
-                  <Disclosure.Button
-                    as="a"
-                    href="#"
-                    className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
-                  >
-                    Sign out
-                  </Disclosure.Button>
-                </div>
-              </div> */}
             </div>
           </Disclosure.Panel>
         </>
