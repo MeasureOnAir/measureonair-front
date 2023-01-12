@@ -28,14 +28,17 @@ function App() {
 
   useEffect(() => {
     if (window.location.pathname == "/viewer") {
-      console.log("viewer")
       setNavbarElements(['viewer', canvasNavbarElementsArray]);
     }
-    if ((window.location.pathname == "/")) {
-      console.log("home")
+    else{
       setNavbarElements(['home', navbarElementsArray]);
     }
+    // if ((window.location.pathname == "/")) {
+    //   setNavbarElements(['home', navbarElementsArray]);
+    // }
   }, [window.location.pathname]);
+
+  console.log(window.location.pathname)
 
   return (
     <BrowserRouter>
