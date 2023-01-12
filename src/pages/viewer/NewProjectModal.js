@@ -11,8 +11,17 @@ const people = [
   { name: "Hellen Schmidt" },
 ];
 
+const elements = [
+  { id: 1, title: "element 1" },
+  { id: 2, title: "element 2" },
+  { id: 3, title: "element 3" },
+  { id: 4, title: "element 4" },
+  { id: 5, title: "element 5" },
+];
+
 const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
   const [selected, setSelected] = useState(people[0]);
+  const [selectedElements, setSelectedElements] = useState([]);
 
   return (
     <div>
@@ -106,7 +115,11 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
 
                         {/*dropdown - start */}
                         <div className="col-span-2 w-full">
-                          <Listbox value={selected} onChange={setSelected}>
+                          <Listbox
+                            value={selectedElements}
+                            onChange={setSelectedElements}
+                            multiple
+                          >
                             <div className="relative mt-1">
                               <Listbox.Button
                                 className="relative w-full cursor-default rounded-md bg-white py-1 pl-3 pr-10 text-left shadow-md focus:outline-none 
@@ -114,7 +127,15 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                               text-sm focus:ring-1 ring-primary-yellow200 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:ring-primary-yellow200"
                               >
                                 <span className="block truncate">
-                                  {selected.name}
+                                  {selectedElements.length > 0 ? (
+                                    <>
+                                      {selectedElements
+                                        .map((element) => element.title)
+                                        .join(", ")}
+                                    </>
+                                  ) : (
+                                    <div>Select</div>
+                                  )}
                                 </span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                   <ChevronUpDownIcon
@@ -133,7 +154,7 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                                   className="absolute mt-1 max-h-24 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1
                                  ring-black ring-opacity-5 focus:outline-none sm:text-sm text-xs dark:bg-secondary-gray500"
                                 >
-                                  {people.map((person, personIdx) => (
+                                  {elements.map((element, personIdx) => (
                                     <Listbox.Option
                                       key={personIdx}
                                       className={({ active }) =>
@@ -143,7 +164,7 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                                             : "text-gray-900 dark:text-gray-300"
                                         }`
                                       }
-                                      value={person}
+                                      value={element}
                                     >
                                       {({ selected }) => (
                                         <>
@@ -155,7 +176,7 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                                               "flex justify-end right-0")
                                             }`}
                                           >
-                                            {person.name}
+                                            {element.title}
                                           </span>
                                           {selected ? (
                                             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600 dark:text-primary-yellow200">
