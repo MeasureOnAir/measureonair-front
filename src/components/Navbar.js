@@ -31,8 +31,8 @@ const profileDropdown = [
   { id: 1, title: "Sign out", path: "#" },
 ];
 
-const Navbar = ({ navbarElementsArray }) => {
-  const [user, setUser] = useState("lahiru");
+const Navbar = ({navbarElementsArray }) => {
+  const [user, setUser] = useState("");
   const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
   const [selectedElement, setSelectedElement] = useState("");
   const [profileElements, setProfileElements] = useState(profileDropdown);
@@ -227,7 +227,7 @@ const Navbar = ({ navbarElementsArray }) => {
                             <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200 dark:focus:ring-gray-500 dark:bg-gray-400">
                               <span className="sr-only">Open user menu</span>
                               <img
-                                className="h-8 w-8 md:h-9 md:w-9 rounded-full ring-2 ring-amber-300 ring-offset-2 dark:ring-amber-500"
+                                className="h-8 w-8 md:h-9 md:w-9 rounded-full ring-2 ring-amber-300 ring-offset-1 ring-offset-gray-400 dark:ring-amber-500"
                                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                                 alt=""
                               />
@@ -271,9 +271,18 @@ const Navbar = ({ navbarElementsArray }) => {
                   ) : (
                     <>
                       <div className="flex-shrink-0">
+                        <Link
+                         to={'/viewer'}
+                        >
                         <button
                           type="button"
-                          className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-gray-400 dark:hover:bg-gray-500 dark:bg-gray-600 "
+                          className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
+                          dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
+                        
+                          onClick={() => {
+                            setUser("Lahiru")
+                          }
+                        }
                         >
                           <PlusSmallIcon
                             className="-ml-1 mr-2 h-5 w-5"
@@ -281,6 +290,7 @@ const Navbar = ({ navbarElementsArray }) => {
                           />
                           <span>Sign In</span>
                         </button>
+                        </Link>
                       </div>
                     </>
                   )}
