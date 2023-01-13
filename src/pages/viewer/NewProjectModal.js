@@ -152,13 +152,15 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                               >
                                 <Listbox.Options
                                   className="absolute mt-1 max-h-24 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1
-                                 ring-black ring-opacity-5 focus:outline-none sm:text-sm text-xs dark:bg-secondary-gray500"
+                                 ring-black ring-opacity-5 focus:outline-none sm:text-sm text-xs scrollbar-thin scrollbar-track-white scrollbar-thumb-gray-200
+                                 dark:bg-secondary-gray500 dark:scrollbar-track-secondary-gray500 dark:scrollbar-thumb-secondary-gray700
+                                 "
                                 >
                                   {elements.map((element, personIdx) => (
                                     <Listbox.Option
                                       key={personIdx}
                                       className={({ active }) =>
-                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                        `relative cursor-default select-none py-2 pl-10 pr-6 ${
                                           active
                                             ? "bg-amber-100 text-amber-900 dark:bg-secondary-gray600 dark:text-gray-100"
                                             : "text-gray-900 dark:text-gray-300"
@@ -207,6 +209,7 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                     className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 
                     bg-primary-yellow200 font-medium text-white hover:hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200 text-sm md:text-base
                     dark:bg-primary-yellow200 dark:text-gray-800 dark:font-bold dark:hover:bg-yellow-500 dark:hover:text-gray-900 dark:tracking-wide dark:focus:ring-primary-yellow200
+                    dark:ring-offset-secondary-gray500
                     "
                     onClick={() => setOpenNewProjectModal(false)}
                   >

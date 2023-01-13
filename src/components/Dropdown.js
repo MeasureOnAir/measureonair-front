@@ -1,6 +1,6 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 const Dropdown = ({ selected, setSelected, items }) => {
   return (
@@ -27,13 +27,14 @@ const Dropdown = ({ selected, setSelected, items }) => {
         >
           <Listbox.Options
             className="absolute mt-1 max-h-24 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1
-                  z-10             ring-black ring-opacity-5 focus:outline-none sm:text-sm text-xs dark:bg-secondary-gray500"
+                  z-10 ring-black ring-opacity-5 focus:outline-none sm:text-sm text-xs scrollbar-thin scrollbar-track-white scrollbar-thumb-gray-200
+                  dark:bg-secondary-gray500 dark:scrollbar-track-secondary-gray500 dark:scrollbar-thumb-secondary-gray700"
           >
             {items.map((item, elementIdx) => (
               <Listbox.Option
                 key={elementIdx}
                 className={({ active }) =>
-                  `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                  `relative cursor-default select-none py-2 pl-10 pr-6 ${
                     active
                       ? "bg-amber-100 text-amber-900 dark:bg-secondary-gray600 dark:text-gray-100"
                       : "text-gray-900 dark:text-gray-300"
