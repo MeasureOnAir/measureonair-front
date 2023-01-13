@@ -57,12 +57,9 @@ const Viewer = () => {
 
   // check the length of project name
   useEffect(() => {
-    console.log(projectName.length);
     if (projectName.length > 32) {
       const str = projectName;
       const modStr = str.slice(0, 31) + " ...";
-      console.log(modStr);
-
       setProjectNameCompressed(modStr);
     } else {
       setProjectNameCompressed(projectName);

@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/homePage/Home";
 import Viewer from "./pages/viewer/Viewer";
 
+import { createBrowserHistory } from "history";
+let history = createBrowserHistory();
+
 const navbarElementsArray = [
   { id: 1, title: "Features", path: "#", selected: false },
   { id: 2, title: "About Us", path: "#", selected: false },
   { id: 3, title: "Our team", path: "#", selected: true },
-  { id: 4, title: "Our partners", path: "#", selected: false },
+  { id: 4, title: "Our partners", path: "/viewer", selected: false },
 ];
 
 const canvasNavbarElementsArray = [
@@ -20,11 +23,14 @@ const canvasNavbarElementsArray = [
   ], path: "#", selected: false },
   { id: 2, title: "Open", path: "#", selected: false },
   { id: 3, title: "Save", path: "#", selected: true },
-  { id: 4, title: "Export", path: "#", selected: false },
+  { id: 4, title: "Export", path: "/", selected: false },
 ];
 
 function App() {
   const [navbarElements, setNavbarElements] = useState(['home', navbarElementsArray]);
+
+  const location = useLocation();
+  // console.log(location);
 
   useEffect(() => {
     if (window.location.pathname == "/viewer") {
@@ -33,21 +39,27 @@ function App() {
     else{
       setNavbarElements(['home', navbarElementsArray]);
     }
-    // if ((window.location.pathname == "/")) {
-    //   setNavbarElements(['home', navbarElementsArray]);
-    // }
   }, [window.location.pathname]);
 
-  console.log(window.location.pathname)
+
+ 
+
+
+  
+ 
+  
+
 
   return (
-    <BrowserRouter>
+    // <BrowserRouter>
+    <>
       <Navbar navbarElementsArray={navbarElements} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/viewer" element={<Viewer />} />
       </Routes>
-    </BrowserRouter>
+     {/* </BrowserRouter> */}
+    </>
   );
 }
 

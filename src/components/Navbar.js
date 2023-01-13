@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { PlusSmallIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MOA_Horizontal_Logo from "../assets/moa-logo-horizontal.svg";
 import NewProjectModal from "../pages/viewer/NewProjectModal";
 import OpenProjectModal from "../pages/viewer/OpenProjectModal";
@@ -22,7 +22,7 @@ const canvasNavbarElementsArray = [
   { id: 1, title: "New", path: "#", selected: false },
   { id: 2, title: "Open", path: "#", selected: false },
   { id: 3, title: "Save", path: "#", selected: true },
-  { id: 4, title: "Export", path: "#", selected: false },
+  { id: 4, title: "Export", path: "/", selected: false },
 ];
 
 const profileDropdown = [
@@ -42,8 +42,10 @@ const Navbar = ({ navbarElementsArray }) => {
   const [openNewProjectModal, setOpenNewProjectModal] = useState(false);
   const [openProjectModal, setOpenProjectModal] = useState(false);
 
+
   useEffect(() => {
     setNavbarElements(navbarElementsArray[1]);
+    setSelectedElement('')
   }, [navbarElementsArray]);
 
   const onScroll = () => {
@@ -194,7 +196,9 @@ const Navbar = ({ navbarElementsArray }) => {
                                 </Menu>
                               </div>
                             ) : (
-                              <>{element.title}</>
+                              <Link
+                                to={element.path}
+                              >{element.title}</Link>
                             )}
                           </div>
                         );
