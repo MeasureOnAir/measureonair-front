@@ -38,7 +38,9 @@ const HeroSection = () => {
                     <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:gap-5">
                       <a
                         href="#"
-                        className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8 dark:bg-primary-yellow200 dark:bg-opacity-70 dark:hover:bg-opacity-80"
+                        // className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8 dark:bg-primary-yellow200 dark:bg-opacity-70 dark:hover:bg-opacity-80"
+                        className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8
+                         dark:bg-primary-yellow200 dark:bg-opacity-80 dark:hover:text-gray-800 dark:hover:bg-opacity-100"
                       >
                         Get started
                       </a>

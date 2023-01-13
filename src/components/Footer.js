@@ -1,5 +1,6 @@
 import React from "react";
 import MOA_Only_Logo from '../assets/moa-logo-only.svg'
+import MOA_Horizontal_Logo from '../assets/moa-logo-horizontal.svg'
 
 const navigation = {
   solutions: [
@@ -103,7 +104,7 @@ const Footer = () => {
             <div className="space-y-6 xl:col-span-1">
               <img
                 className="h-24 "
-                src={MOA_Only_Logo}
+                src={MOA_Horizontal_Logo}
                 alt="Company name"
               />
               <p className="text-gray-600 dark:text-gray-400 text-base">
