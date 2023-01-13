@@ -36,12 +36,92 @@ const elements = [
   { id: 5, title: "element 5" },
 ];
 
+const projectDetails = [
+  {
+    id: 1,
+    title: "project 1",
+    levels: [
+      {
+        id: 11,
+        title: "level 11",
+        elements: [
+          { id: 111, title: "element 111" },
+          { id: 112, title: "element 112" },
+          { id: 113, title: "element 113" },
+          { id: 114, title: "element 114" },
+        ],
+      },
+      {
+        id: 12,
+        title: "level 12",
+        elements: [
+          { id: 121, title: "element 121" },
+          { id: 122, title: "element 122" },
+          { id: 123, title: "element 123" },
+          { id: 124, title: "element 124" },
+        ],
+      },
+      {
+        id: 13,
+        title: "level 13",
+        elements: [
+          { id: 131, title: "element 131" },
+          { id: 132, title: "element 132" },
+          { id: 133, title: "element 133" },
+          { id: 134, title: "element 134" },
+        ],
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: "project 2",
+    levels: [
+      {
+        id: 21,
+        title: "level 21",
+        elements: [
+          { id: 211, title: "element 211" },
+          { id: 212, title: "element 212" },
+          { id: 213, title: "element 213" },
+          { id: 214, title: "element 214" },
+        ],
+      },
+      {
+        id: 22,
+        title: "level 22",
+        elements: [
+          { id: 221, title: "element 221" },
+          { id: 222, title: "element 222" },
+          { id: 223, title: "element 223" },
+          { id: 224, title: "element 224" },
+        ],
+      },
+      {
+        id: 23,
+        title: "level 23",
+        elements: [
+          { id: 231, title: "element 231" },
+          { id: 232, title: "element 232" },
+          { id: 233, title: "element 233" },
+          { id: 234, title: "element 234" },
+        ],
+      },
+    ],
+  },
+];
+
 const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
   const [selected, setSelected] = useState(people[0]);
-
-  const [selectedProjectName, setSelectedProjectName] = useState(projects[0]);
-  const [selectedLevelNumber, setSelectedLevelNumber] = useState(levels[0]);
-  const [selectedElement, setSelectedElement] = useState(elements[0]);
+  const [selectedProjectName, setSelectedProjectName] = useState(
+    projectDetails[0]
+  );
+  const [selectedLevelNumber, setSelectedLevelNumber] = useState(
+    selectedProjectName.levels[0]
+  );
+  const [selectedElement, setSelectedElement] = useState(
+    selectedLevelNumber.elements[0]
+  );
 
   return (
     <div>
@@ -99,7 +179,7 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
                           <Dropdown
                             selected={selectedProjectName}
                             setSelected={setSelectedProjectName}
-                            items={projects}
+                            items={projectDetails}
                           />
                         </div>
                       </div>
@@ -111,7 +191,7 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
                           <Dropdown
                             selected={selectedLevelNumber}
                             setSelected={setSelectedLevelNumber}
-                            items={levels}
+                            items={selectedProjectName.levels}
                           />
                         </div>
                       </div>
@@ -125,10 +205,9 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
                           <Dropdown
                             selected={selectedElement}
                             setSelected={setSelectedElement}
-                            items={elements}
+                            items={selectedLevelNumber.elements}
                           />
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -139,6 +218,7 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
                     className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 
                   bg-primary-yellow200 font-medium text-white hover:hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200 text-sm md:text-base
                   dark:bg-primary-yellow200 dark:text-gray-800 dark:font-bold dark:hover:bg-yellow-500 dark:hover:text-gray-900 dark:tracking-wide dark:focus:ring-primary-yellow200
+                  dark:ring-offset-secondary-gray500
                   "
                     onClick={() => setOpenProjectModal(false)}
                   >
