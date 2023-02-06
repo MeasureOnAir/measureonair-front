@@ -37,6 +37,7 @@ function App() {
     "home",
     navbarElementsArray,
   ]);
+  const [projectName, setProjectName] = useState("Cool Structures jkdjfkdf endabcdefghdijfjf")
 
   const location = useLocation();
 
@@ -52,10 +53,10 @@ function App() {
   return (
     // <BrowserRouter>
     <>
-      <Navbar navbarElementsArray={navbarElements} />
+      <Navbar navbarElementsArray={navbarElements} projectName = {projectName}/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/viewer" element={<Viewer />} />
+        <Route path="/viewer" element={<Viewer projectName = {projectName} setProjectName = {setProjectName} />} />
       </Routes>
       {/* </BrowserRouter> */}
     </>

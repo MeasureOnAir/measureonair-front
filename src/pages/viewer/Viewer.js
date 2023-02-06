@@ -7,6 +7,8 @@ import { IoColorPaletteOutline } from "react-icons/io5";
 import { TbRectangle, TbMinusVertical } from "react-icons/tb";
 import { CirclePicker } from "react-color";
 
+import ImageViewSVG from "../../components/ImageViewSVG";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -38,12 +40,12 @@ let toolbarIcons = [
   },
 ];
 
-const Viewer = () => {
-  const [projectName, setProjectName] = useState(
-    "Cool Structures jkdjfkdf endabcdefgh"
-  );
+const Viewer = ({projectName, setProjectName}) => {
+  // const [projectName, setProjectName] = useState(
+  //   "Cool Structures jkdjfkdf endabcdefghdijfjf"
+  // );
   const [projectNameCompressed, setProjectNameCompressed] = useState("");
-  const [rangeValue, setRangeValue] = useState(20);
+  const [rangeValue, setRangeValue] = useState(5);
   const [isLineClicked, setIsLineClicked] = useState(false);
   const [isMapPinClicked, setIsMapPinClicked] = useState(false);
   const [isCurserClicked, setIsCurserClicked] = useState(false);
@@ -51,7 +53,7 @@ const Viewer = () => {
   const [clickedItem, setClickedItem] = useState(
     localStorage.getItem("clickedItem")
   );
-  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedColor, setSelectedColor] = useState("red");
   const [isColorPickerClicked, setIsColorPickerClicked] = useState(false);
   const [isProjectNameHover, setIsProjectNameHover] = useState(false);
 
@@ -68,17 +70,17 @@ const Viewer = () => {
 
   const onItemClick = (item) => {
     setClickedItem(item.name);
-    localStorage.setItem("clickedItem", item.name);
+    // localStorage.setItem("clickedItem", item.name);
 
-    if (item.name == "mapPin") {
+    if (item.name === "mapPin") {
       setIsMapPinClicked(true);
       setIsLineClicked(false);
       setIsBoxClicked(false);
-    } else if (item.name == "slash") {
+    } else if (item.name === "slash") {
       setIsLineClicked(true);
       setIsBoxClicked(false);
       setIsMapPinClicked(false);
-    } else if (item.name == "rectangle") {
+    } else if (item.name === "rectangle") {
       setIsBoxClicked(true);
       setIsLineClicked(false);
       setIsMapPinClicked(false);
@@ -93,6 +95,14 @@ const Viewer = () => {
     console.log(projectName);
   };
 
+  const createToolObj = () => {
+    return {
+      toolId: isMapPinClicked ? 2 : (isLineClicked ? 3 : (isBoxClicked ? 4 : 1)),
+      color: selectedColor,
+      strokeSize: rangeValue,
+    }
+  }
+
   return (
     <div className="mt-16">
       {/* toolbar - start */}
@@ -105,10 +115,9 @@ const Viewer = () => {
                 <div
                   key={item.id}
                   className={classNames(
-                    clickedItem == item.name
+                    clickedItem === item.name
                       ? "ring-1 ring-yellow-600 bg-gray-200 text-yellow-700 dark:bg-primary-yellow200 dark:text-gray-700 dark:ring-gray-800"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-600",
-                    "p-1 rounded-md dark:text-gray-200"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-600", "p-1 rounded-md dark:text-gray-200"
                   )}
                   onClick={() => {
                     onItemClick(item);
@@ -133,7 +142,7 @@ const Viewer = () => {
 
           {/* second grid */}
           <div className="grid items-center">
-            <div className="md:hidden grid grid-cols-3 items-center justify-between">
+            <div className="md:hidden grid grid-cols-3 py-1 items-center justify-between">
               <div className="flex ml-3 gap-x-4 w-full justify-start">
                 <div>
                   <IoIosUndo className="h-6 w-6 text-yellow-900 dark:text-gray-200" />
@@ -142,7 +151,7 @@ const Viewer = () => {
                   <IoIosRedo className="h-6 w-6 text-yellow-900 dark:text-gray-200" />
                 </div>
               </div>
-              <div className="grid col-span-2 justify-end sm:mr-4 mr-2 py-1 dark:text-gray-200 ">
+              <div className="hidden md:grid col-span-2 justify-end sm:mr-4 mr-2 py-1 dark:text-gray-200 ">
                 {projectNameCompressed}
               </div>
             </div>
@@ -164,9 +173,10 @@ const Viewer = () => {
           </div>
 
           {/* third grid */}
-          <div className="hidden md:grid justify-center items-center mb-1 mt-1">
+          <div className="hidden md:flex lg:flex justify-center items-center mb-1 mt-1 ">
+          {/* <div className="hidden flex flex-row md:grid justify-center items-center mb-1 mt-1"> */}
             {isLineClicked && (
-              <div className="flex gap-x-3 items-center">
+              <div className="flex gap-x-3 items-center mr-1">
                 <label
                   for="default-range"
                   className="block mb-0 text-xs font-medium text-gray-900 dark:text-gray-300"
@@ -183,7 +193,7 @@ const Viewer = () => {
               </div>
             )}
             {isBoxClicked && (
-              <div className="flex gap-x-3 items-center">
+              <div className="flex gap-x-3 items-center mr-1">
                 <label
                   for="default-range"
                   className="block mb-0 text-xs font-medium text-gray-900 dark:text-gray-300"
@@ -200,8 +210,8 @@ const Viewer = () => {
               </div>
             )}
 
-            {isMapPinClicked && (
-              <>
+            {(isMapPinClicked || isLineClicked || isBoxClicked) && (
+              <div className="flex">
                 <div className="flex">
                   {selectedColor.length > 0 ? (
                     <TbRectangle
@@ -219,20 +229,22 @@ const Viewer = () => {
                 </div>
 
                 {isColorPickerClicked && (
-                  <div className="absolute origin-top-right top-28 p-3 rounded-lg dark:bg-secondary-gray700">
+                  <div className="absolute origin-top right-5 top-28 p-3 rounded-lg dark:bg-secondary-gray700 z-30">
+                   {/* <div className="absolute origin-top dark:bg-secondary-gray700"> */}
                     <CirclePicker
                       onChange={(color, event) => setSelectedColor(color.hex)}
                       onChangeComplete={() => setIsColorPickerClicked(false)}
                     />
                   </div>
                 )}
-              </>
+              </div>
             )}
           </div>
         </div>
       </div>
       {/* toolbar - end */}
       {/* bottom toolbar - mobile view - start*/}
+      {/* <div className="absolute bottom-0 w-full md:hidden bg-primary-yellow2_400  dark:bg-secondary-gray500 py-1"> */}
       <div className="absolute bottom-0 w-full md:hidden bg-primary-yellow2_400  dark:bg-secondary-gray500 py-1">
         <div className="grid grid-cols-2 px-2 items-center">
           {/* first grid */}
@@ -242,7 +254,7 @@ const Viewer = () => {
                 <div
                   key={item.id}
                   className={classNames(
-                    clickedItem == item.name
+                    clickedItem === item.name
                       ? "ring-1 ring-yellow-600 bg-gray-200 text-yellow-700 dark:bg-primary-yellow200 dark:text-gray-700 dark:ring-gray-800"
                       : "hover:bg-gray-100 dark:hover:bg-gray-600",
                     "p-1 rounded-md dark:text-gray-200"
@@ -259,7 +271,7 @@ const Viewer = () => {
 
           {/* second grid */}
           <div className="flex justify-end items-center mr-4">
-            {isMapPinClicked && (
+            {(isMapPinClicked || isLineClicked || isBoxClicked) && (
               <>
                 <div className="flex">
                   {selectedColor.length > 0 ? (
@@ -278,7 +290,8 @@ const Viewer = () => {
                 </div>
 
                 {isColorPickerClicked && (
-                  <div className="absolute origin-bottom bottom-11 p-3 rounded-lg dark:bg-secondary-gray700">
+                  <div className="absolute origin-bottom bottom-11 p-3 rounded-lg dark:bg-secondary-gray700 z-30">
+                  {/* <div className="absolute origin-top dark:bg-secondary-gray700"> */}
                     <CirclePicker
                       onChange={(color, event) => setSelectedColor(color.hex)}
                       onChangeComplete={() => setIsColorPickerClicked(false)}
@@ -299,7 +312,7 @@ const Viewer = () => {
                 />
               </div>
             )}
-            {isBoxClicked && (
+            {/* {isBoxClicked && (
               <div className="">
                 <input
                   id="default-range"
@@ -309,16 +322,16 @@ const Viewer = () => {
                   onChange={(e) => setRangeValue(e.target.value)}
                 />
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
 
       {/* bottom toolbar - mobile view - end*/}
-
-      <div className="">
-        <div className="lg:max-w-7xl m-auto">Viewer</div>
-      </div>
+      {/* <div className="m-auto">
+        <ImageView toolData={currentTool} projectData={{}}/>
+      </div> */}
+      <ImageViewSVG currentTool={createToolObj()}/>
     </div>
   );
 };

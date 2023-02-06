@@ -31,7 +31,7 @@ const profileDropdown = [
   { id: 1, title: "Sign out", path: "#" },
 ];
 
-const Navbar = ({navbarElementsArray }) => {
+const Navbar = ({navbarElementsArray, projectName }) => {
   const [user, setUser] = useState("");
   const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
   const [selectedElement, setSelectedElement] = useState("");
@@ -302,6 +302,11 @@ const Navbar = ({navbarElementsArray }) => {
             <Disclosure.Panel className="md:hidden absolute w-full">
               <div className="bg-primary-yellow200 rounded-lg py-4 mx-2 mt-1 shadow-xl dark:bg-secondary-gray600">
                 <div className="pt-2 pb-3 space-y-1 ">
+                  
+                  <div className="border-b mt-0 pb-2 mx-3 border-gray-500">
+                  <div className="px-1 sm:px-3">{projectName}</div>
+                  {/* <hr className="mx-3 mt-3 " /> */}
+                  </div>
                   {navbarElements &&
                     navbarElements.map((element, elementIdx) => {
                       return (
