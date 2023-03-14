@@ -1,27 +1,78 @@
 import { Dialog, Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import Dropdown from "../../components/Dropdown";
 
-const people = [
-  { name: "Wade Cooper" },
-  { name: "Arlene Mccoy" },
-  { name: "Devon Webb" },
-  { name: "Tom Cook" },
-  { name: "Tanya Fox" },
-  { name: "Hellen Schmidt" },
+
+const unitList = [
+  { id: 1, title: "meter" },
+  { id: 2, title: "feet" },
 ];
 
-const elements = [
-  { id: 1, title: "element 1" },
-  { id: 2, title: "element 2" },
-  { id: 3, title: "element 3" },
-  { id: 4, title: "element 4" },
-  { id: 5, title: "element 5" },
-];
+const NewMarkerModal = ({ openNewMarkerModal, setOpenNewMarkerModal, currentMarkerData, setCurrentMarkerData, markers, setMarkers }) => {
 
-const NewMarkerModal = ({ openNewMarkerModal, setOpenNewMarkerModal }) => {
-  const [selected, setSelected] = useState(people[0]);
-  const [selectedElements, setSelectedElements] = useState([]);
+  const [selectedUnit, setSelectedUnit] = useState({id: 1, title: 'meter'})
+
+  const [id, setId] = useState()
+  const [type, setType] = useState()
+  const [length, setLength] = useState(1)
+  const [width, setWidth] = useState(1)
+  const [height, setHeight] = useState(1)
+  const [qty, setQty] = useState(1)
+  const [times, setTimes] = useState(1)
+  const [remarks, setRemarks] = useState("")
+
+
+  useEffect(() => {
+    setId(currentMarkerData.id)
+    setType(currentMarkerData.type)
+    setLength(currentMarkerData.length)
+    setWidth(currentMarkerData.width)
+    setHeight(currentMarkerData.height)
+    setQty(currentMarkerData.qty)
+    setTimes(currentMarkerData.times)
+    setSelectedUnit({id: 1, title: currentMarkerData.unit})
+    setRemarks(currentMarkerData.remarks)
+  }, [currentMarkerData])
+
+
+  const onSaveClicked = (event) => {
+
+    const currentItem = markers[currentMarkerData.id]
+    setMarkers({
+      ...markers,
+      [currentMarkerData.id]: {
+        ...currentItem,
+        data: {
+          id: id,
+          type: type,
+          length: length,
+          width: width,
+          height: height,
+          qty: qty,
+          times: times,
+          unit: selectedUnit.title,
+          remarks: remarks
+        },
+      },
+    });
+    setOpenNewMarkerModal(false)
+
+  }
+
+  const onDeleteClicked = (event) => {
+
+    // remove the current marker and create a new object
+    const newMarkers = Object.keys(markers)
+    .filter(key => key !== currentMarkerData.id)
+    .reduce((acc, key) => {
+      acc[key] = markers[key];
+      return acc;
+    }, {});
+    setMarkers(newMarkers)
+    setOpenNewMarkerModal(false)
+  }
+  
 
   return (
     <div>
@@ -67,153 +118,163 @@ const NewMarkerModal = ({ openNewMarkerModal, setOpenNewMarkerModal }) => {
                       as="h3"
                       className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100"
                     >
-                      New Project
+                      Marker Data
                     </Dialog.Title>
 
                     <div className="gap-4 my-10">
                       <div className="grid grid-cols-3 items-center my-6">
                         <div className="col-span-1 text-left text-sm font-semibold dark:text-gray-200">
-                          Project name
+                          Marker Id
                         </div>
                         <div className=" col-span-2">
                           <input
+                            value={id}
+                            onChange={e=>setId(e.target.value)}
+                            disabled={true}
                             type="text"
-                            placeholder="Name . . ."
+                            placeholder="Marker Id"
                             className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-200 focus:outline  focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
                           />
                         </div>
                       </div>
                       <div className="grid grid-cols-3 items-center my-6">
                         <div className="col-span-1 text-left text-sm font-semibold dark:text-gray-200">
-                          Project details
+                          Marker Type
                         </div>
                         <div className=" col-span-2">
                           <input
+                            value={type}
+                            onChange={e=>setType(e.target.value)}
+                            disabled={true}
                             type="text"
-                            placeholder="Details . . ."
+                            placeholder="Marker Type"
                             className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-300 focus:outline focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
                           />
                         </div>
                       </div>
                       <div className=" grid grid-cols-3 items-center my-6">
                         <div className="col-span-1 text-left text-sm font-semibold dark:text-gray-200">
-                          Number of floors
+                          Length
                         </div>
                         <div className=" col-span-2">
                           <input
+                            value={length}
+                            onChange={e=>setLength(e.target.value)}
                             type="number"
-                            placeholder="Floors . . ."
+                            placeholder="Length..."
                             className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-300 focus:outline focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
                           />
                         </div>
                       </div>
-
                       <div className=" grid grid-cols-3 items-center my-6">
                         <div className="col-span-1 text-left text-sm font-semibold dark:text-gray-200">
-                          Elements
+                          Width
                         </div>
-
-                        {/*dropdown - start */}
-                        <div className="col-span-2 w-full">
-                          <Listbox
-                            value={selectedElements}
-                            onChange={setSelectedElements}
-                            multiple
-                          >
-                            <div className="relative mt-1">
-                              <Listbox.Button
-                                className="relative w-full cursor-default rounded-md bg-white py-1 pl-3 pr-10 text-left shadow-md focus:outline-none 
-                               border border-gray-200 dark:border-gray-600
-                              text-sm focus:ring-1 ring-primary-yellow200 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:ring-primary-yellow200"
-                              >
-                                <span className="block truncate">
-                                  {selectedElements.length > 0 ? (
-                                    <>
-                                      {selectedElements
-                                        .map((element) => element.title)
-                                        .join(", ")}
-                                    </>
-                                  ) : (
-                                    <div>Select</div>
-                                  )}
-                                </span>
-                                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                  <ChevronUpDownIcon
-                                    className="h-5 w-5 text-gray-400"
-                                    aria-hidden="true"
-                                  />
-                                </span>
-                              </Listbox.Button>
-                              <Transition
-                                as={Fragment}
-                                leave="transition ease-in duration-100"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
-                              >
-                                <Listbox.Options
-                                  className="absolute mt-1 max-h-24 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1
-                                 ring-black ring-opacity-5 focus:outline-none sm:text-sm text-xs scrollbar-thin scrollbar-track-white scrollbar-thumb-gray-200
-                                 dark:bg-secondary-gray500 dark:scrollbar-track-secondary-gray500 dark:scrollbar-thumb-secondary-gray700
-                                 "
-                                >
-                                  {elements.map((element, personIdx) => (
-                                    <Listbox.Option
-                                      key={personIdx}
-                                      className={({ active }) =>
-                                        `relative cursor-default select-none py-2 pl-10 pr-6 ${
-                                          active
-                                            ? "bg-amber-100 text-amber-900 dark:bg-secondary-gray600 dark:text-gray-100"
-                                            : "text-gray-900 dark:text-gray-300"
-                                        }`
-                                      }
-                                      value={element}
-                                    >
-                                      {({ selected }) => (
-                                        <>
-                                          <span
-                                            className={`block truncate ${
-                                              (selected
-                                                ? "font-medium"
-                                                : "font-normal",
-                                              "flex justify-end right-0")
-                                            }`}
-                                          >
-                                            {element.title}
-                                          </span>
-                                          {selected ? (
-                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600 dark:text-primary-yellow200">
-                                              <CheckIcon
-                                                className="h-5 w-5"
-                                                aria-hidden="true"
-                                              />
-                                            </span>
-                                          ) : null}
-                                        </>
-                                      )}
-                                    </Listbox.Option>
-                                  ))}
-                                </Listbox.Options>
-                              </Transition>
-                            </div>
-                          </Listbox>
+                        <div className=" col-span-2">
+                          <input
+                            value={width}
+                            onChange={e=>setWidth(e.target.value)}
+                            type="number"
+                            placeholder="Width..."
+                            className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-300 focus:outline focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
+                          />
                         </div>
-
-                        {/*dropdown - end */}
+                      </div>
+                      <div className=" grid grid-cols-3 items-center my-6">
+                        <div className="col-span-1 text-left text-sm font-semibold dark:text-gray-200">
+                          Height
+                        </div>
+                        <div className=" col-span-2">
+                          <input
+                            value={height}
+                            onChange={e=>setHeight(e.target.value)}
+                            type="number"
+                            placeholder="Height..."
+                            className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-300 focus:outline focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
+                          />
+                        </div>
+                      </div>
+                      <div className=" grid grid-cols-3 items-center my-6">
+                        <div className="col-span-1 text-left text-sm font-semibold dark:text-gray-200">
+                          Quantity
+                        </div>
+                        <div className=" col-span-2">
+                          <input
+                            value={qty}
+                            onChange={e=>setQty(e.target.value)}
+                            type="number"
+                            placeholder="Quantity..."
+                            className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-300 focus:outline focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
+                          />
+                        </div>
+                      </div>
+                      <div className=" grid grid-cols-3 items-center my-6">
+                        <div className="col-span-1 text-left text-sm font-semibold dark:text-gray-200">
+                          Times
+                        </div>
+                        <div className=" col-span-2">
+                          <input
+                            value={times}
+                            onChange={e=>setTimes(e.target.value)}
+                            type="number"
+                            placeholder="Times..."
+                            className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-300 focus:outline focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-3 items-center my-6">
+                        <div className="col-span-1 text-left text-sm font-semibold dark:text-gray-200">
+                          Unit
+                        </div>
+                        <div className=" col-span-2">
+                          <Dropdown
+                            selected={selectedUnit}
+                            setSelected={setSelectedUnit}
+                            items={unitList}
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-3 items-center my-6">
+                        <div className="col-span-1 text-left text-sm font-semibold dark:text-gray-200">
+                          Remarks
+                        </div>
+                        <div className=" col-span-2">
+                          <input
+                            value={remarks}
+                            onChange={e=>setRemarks(e.target.value)}
+                            type="text"
+                            placeholder="Remarks..."
+                            className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-300 focus:outline focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="mt-5 sm:mt-6">
+                {/* <div className="mt-5 sm:mt-6"> */}
+                {/* <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row sm:space-x-4"> */}
+                <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row sm:space-x-4">
                   <button
                     type="button"
-                    className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 
+                    className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 mb-3
                     bg-primary-yellow200 font-medium text-white hover:hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200 text-sm md:text-base
                     dark:bg-primary-yellow200 dark:text-gray-800 dark:font-bold dark:hover:bg-yellow-500 dark:hover:text-gray-900 dark:tracking-wide dark:focus:ring-primary-yellow200
                     dark:ring-offset-secondary-gray500
                     "
-                    onClick={() => setOpenNewMarkerModal(false)}
+                    onClick={onSaveClicked}
                   >
-                    Create
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 mb-3
+                    bg-primary-yellow200 font-medium text-white hover:hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200 text-sm md:text-base
+                    dark:bg-primary-yellow200 dark:text-gray-800 dark:font-bold dark:hover:bg-yellow-500 dark:hover:text-gray-900 dark:tracking-wide dark:focus:ring-primary-yellow200
+                    dark:ring-offset-secondary-gray500
+                    "
+                    onClick={onDeleteClicked}
+                  >
+                    Delete
                   </button>
                 </div>
               </div>

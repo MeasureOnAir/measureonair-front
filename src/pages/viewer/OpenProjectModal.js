@@ -1,40 +1,10 @@
 import { Dialog, Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import React, { Fragment, useState } from "react";
+import axios from "axios";
+import React, { Fragment, useEffect, useState } from "react";
 import Dropdown from "../../components/Dropdown";
 
-const people = [
-  { name: "Wade Cooper" },
-  { name: "Arlene Mccoy" },
-  { name: "Devon Webb" },
-  { name: "Tom Cook" },
-  { name: "Tanya Fox" },
-  { name: "Hellen Schmidt" },
-];
-
-const projects = [
-  { id: 1, title: "project 1" },
-  { id: 2, title: "project 2" },
-  { id: 3, title: "project 3" },
-  { id: 4, title: "project 4" },
-  { id: 5, title: "project 5" },
-];
-
-const levels = [
-  { id: 1, title: "level 1" },
-  { id: 2, title: "level 2" },
-  { id: 3, title: "level 3" },
-  { id: 4, title: "level 4" },
-  { id: 5, title: "level 5" },
-];
-
-const elements = [
-  { id: 1, title: "element 1" },
-  { id: 2, title: "element 2" },
-  { id: 3, title: "element 3" },
-  { id: 4, title: "element 4" },
-  { id: 5, title: "element 5" },
-];
+import { BACKEND } from "../../constants/endpoints";
 
 const projectDetails = [
   {
@@ -111,17 +81,113 @@ const projectDetails = [
   },
 ];
 
-const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
-  const [selected, setSelected] = useState(people[0]);
-  const [selectedProjectName, setSelectedProjectName] = useState(
-    projectDetails[0]
-  );
-  const [selectedLevelNumber, setSelectedLevelNumber] = useState(
-    selectedProjectName.levels[0]
-  );
-  const [selectedElement, setSelectedElement] = useState(
-    selectedLevelNumber.elements[0]
-  );
+const ELEMENT_DICT = {
+  'floor': 'EL001',
+  'wall': 'EL002',
+  'door': 'EL003',
+  'window': 'EL004',
+  'paint': 'EL005',
+  'roof': 'EL006'
+}
+
+const OpenProjectModal = ({ openProjectModal, setOpenProjectModal, setProjectAttrs }) => {
+  // const [selectedProjectName, setSelectedProjectName] = useState(
+  //   projectDetails[0]
+  // );
+  // const [selectedLevelNumber, setSelectedLevelNumber] = useState(
+  //   selectedProjectName.levels[0]
+  // );
+  // const [selectedElement, setSelectedElement] = useState(
+  //   selectedLevelNumber.elements[0]
+  // );
+
+  // New Variables
+  const [projectList, setProjectList] = useState([]);
+  const [selectedProject, setSelectedProject] = useState({
+    id: 1,
+    title: "Select a Project",
+  });
+  const [levelList, setLevelList] = useState([]);
+  const [selectedLevel, setSelectedLevel] = useState({
+    id: 1,
+    title: "Select a Level",
+  });
+  const [elementList, setElementList] = useState([]);
+  const [selectedElement, setSelectedElement] = useState({
+    id: 1,
+    title: "Select an Element",
+  });
+
+  // useEffect(() => {
+  //   getAllProjects();
+  // }, []);
+
+  useEffect(() => {
+    getAllProjects();
+  }, [openProjectModal])
+
+  useEffect(() => {
+    setLevelAndElements();
+  }, [selectedProject]);
+
+  // {
+  //   "description": "This is a Test Project",
+  //   "elements": [
+  //     "floor",
+  //     "wall"
+  //   ],
+  //   "id": "7059bd5e",
+  //   "key": "a5djnopw29u6",
+  //   "name": "Test Project 1",
+  //   "num_levels": 2
+  // },
+
+  const getAllProjects = async () => {
+    await axios
+      .get(`${BACKEND}data/all/project`)
+      .then((res) => {
+        const responseData = res.data;
+        const projectsWithTitle = responseData.map((project) => ({
+          ...project,
+          title: project.name,
+        }));
+        const sortedProjects = projectsWithTitle.sort((a, b) => {
+          if (a.title < b.title) return -1;
+          if (a.title > b.title) return 1;
+          return 0;
+        });
+        setProjectList(sortedProjects);
+      })
+      .catch((error) => {
+        console.log("Some Error Occured While Fetching Project List", error);
+        // console.log(error.errorCode, error.errorMessage)
+      });
+  };
+
+  const setLevelAndElements = () => {
+    if (selectedProject.id === 1) {
+      return;
+    } else {
+      const numLevels = Number(selectedProject?.num_levels) || 0;
+      const levels = Array.from({ length: numLevels }, (_, i) => ({
+        id: i + 1,
+        title: (i + 1).toString(),
+      }));
+      setLevelList(levels);
+
+      // if (selectedProject.id === 1 || selectedLevel.id === 1) {
+      //   return;
+      // } else {
+        const elements = selectedProject.elements.map((title) => {
+          const elem_id = ELEMENT_DICT[title]
+          return {id: elem_id, title: title}
+        })
+        setElementList(elements);
+      // }
+    }
+  };
+
+
 
   return (
     <div>
@@ -177,9 +243,9 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
                         </div>
                         <div className=" col-span-2">
                           <Dropdown
-                            selected={selectedProjectName}
-                            setSelected={setSelectedProjectName}
-                            items={projectDetails}
+                            selected={selectedProject}
+                            setSelected={setSelectedProject}
+                            items={projectList}
                           />
                         </div>
                       </div>
@@ -189,9 +255,9 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
                         </div>
                         <div className=" col-span-2">
                           <Dropdown
-                            selected={selectedLevelNumber}
-                            setSelected={setSelectedLevelNumber}
-                            items={selectedProjectName.levels}
+                            selected={selectedLevel}
+                            setSelected={setSelectedLevel}
+                            items={levelList}
                           />
                         </div>
                       </div>
@@ -205,7 +271,7 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
                           <Dropdown
                             selected={selectedElement}
                             setSelected={setSelectedElement}
-                            items={selectedLevelNumber.elements}
+                            items={elementList}
                           />
                         </div>
                       </div>
@@ -220,7 +286,10 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal }) => {
                   dark:bg-primary-yellow200 dark:text-gray-800 dark:font-bold dark:hover:bg-yellow-500 dark:hover:text-gray-900 dark:tracking-wide dark:focus:ring-primary-yellow200
                   dark:ring-offset-secondary-gray500
                   "
-                    onClick={() => setOpenProjectModal(false)}
+                    onClick={() => {
+                      setProjectAttrs({project_id: selectedProject.id, level: selectedLevel, element_id: selectedElement})
+                      setOpenProjectModal(false)
+                    }}
                   >
                     Open
                   </button>

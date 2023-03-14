@@ -1,27 +1,52 @@
 import { Dialog, Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import React, { Fragment, useState } from "react";
-
-const people = [
-  { name: "Wade Cooper" },
-  { name: "Arlene Mccoy" },
-  { name: "Devon Webb" },
-  { name: "Tom Cook" },
-  { name: "Tanya Fox" },
-  { name: "Hellen Schmidt" },
-];
+import React, { Fragment, useRef, useState } from "react";
+import useCreateProject from "../../hooks/api/useCreateProject";
 
 const elements = [
-  { id: 1, title: "element 1" },
-  { id: 2, title: "element 2" },
-  { id: 3, title: "element 3" },
-  { id: 4, title: "element 4" },
-  { id: 5, title: "element 5" },
+  { id: "EL001", title: "floor" },
+  { id: "EL002", title: "wall" },
+  { id: "EL003", title: "door" },
+  { id: "EL004", title: "window" },
+  { id: "EL005", title: "paint" },
+  { id: "EL006", title: "roof" },
 ];
 
 const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
-  const [selected, setSelected] = useState(people[0]);
+  const [creatProject, isLoading, error, success] = useCreateProject();
   const [selectedElements, setSelectedElements] = useState([]);
+
+  const project_name = useRef(null);
+  const project_details = useRef(null);
+  const num_floors = useRef(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = await creatProject(
+      project_name.current.value,
+      project_details.current.value,
+      num_floors.current.value,
+      selectedElements.map((x) => x.title)
+    );
+    console.log(data);
+
+    // if (success) {
+    //   alert("Project Created Successfully!")
+    //   setSelectedElements([]);
+    //   setOpenNewProjectModal(false)
+    // } else {
+    //   alert(`Error: ${error}`)
+    // }
+
+    // {error && <p>Error: {error}</p>}
+    // {success && <p>Project Created Successfully!</p>}
+    
+    setSelectedElements([])
+    setOpenNewProjectModal(false)
+
+
+  };
 
   return (
     <div>
@@ -77,9 +102,11 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                         </div>
                         <div className=" col-span-2">
                           <input
+                            ref={project_name}
                             type="text"
                             placeholder="Name . . ."
                             className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-200 focus:outline  focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
+                            name="project_name"
                           />
                         </div>
                       </div>
@@ -89,6 +116,7 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                         </div>
                         <div className=" col-span-2">
                           <input
+                            ref={project_details}
                             type="text"
                             placeholder="Details . . ."
                             className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-300 focus:outline focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
@@ -101,6 +129,7 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                         </div>
                         <div className=" col-span-2">
                           <input
+                            ref={num_floors}
                             type="number"
                             placeholder="Floors . . ."
                             className=" px-2 p-1 w-full text-sm border text-gray-600 border-gray-300 focus:outline focus:outline-primary-yellow200 rounded-md dark:border-gray-600 dark:bg-secondary-gray600 dark:text-gray-300 dark:focus:outline-primary-yellow200"
@@ -211,10 +240,12 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                     dark:bg-primary-yellow200 dark:text-gray-800 dark:font-bold dark:hover:bg-yellow-500 dark:hover:text-gray-900 dark:tracking-wide dark:focus:ring-primary-yellow200
                     dark:ring-offset-secondary-gray500
                     "
-                    onClick={() => setOpenNewProjectModal(false)}
+                    disabled={isLoading}
+                    onClick={handleSubmit}
                   >
-                    Create
+                    {isLoading ? "Creating..." : "Create"}
                   </button>
+
                 </div>
               </div>
             </Transition.Child>

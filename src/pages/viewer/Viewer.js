@@ -8,6 +8,24 @@ import { TbRectangle, TbMinusVertical } from "react-icons/tb";
 import { CirclePicker } from "react-color";
 
 import ImageViewSVG from "../../components/ImageViewSVG";
+import EmptyView from "../../components/EmptyView";
+import InitView from "../../components/InitView";
+import OpenProjectModal from "./OpenProjectModal";
+import axios from "axios";
+import { BACKEND } from "../../constants/endpoints";
+import * as MARKER_DATA from "../../components/Markers";
+
+const INIT_MARKER_VALUES = {
+  id: "M0",
+  type: "point",
+  length: 1,
+  width: 1,
+  height: 1,
+  qty: 1,
+  times: 1,
+  unit: "meter",
+  remarks: "",
+};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -40,10 +58,14 @@ let toolbarIcons = [
   },
 ];
 
-const Viewer = ({projectName, setProjectName}) => {
-  // const [projectName, setProjectName] = useState(
-  //   "Cool Structures jkdjfkdf endabcdefghdijfjf"
-  // );
+const Viewer = ({
+  projectName,
+  setProjectName,
+  projectAttrs,
+  setProjectAttrs,
+  markers,
+  setMarkers,
+}) => {
   const [projectNameCompressed, setProjectNameCompressed] = useState("");
   const [rangeValue, setRangeValue] = useState(5);
   const [isLineClicked, setIsLineClicked] = useState(false);
@@ -57,6 +79,19 @@ const Viewer = ({projectName, setProjectName}) => {
   const [isColorPickerClicked, setIsColorPickerClicked] = useState(false);
   const [isProjectNameHover, setIsProjectNameHover] = useState(false);
 
+  // const [isProjectOpen, setIsProjectOpen] = useState(false);
+  const [isImageAvailable, setIsImageAvailable] = useState(true);
+  const [currentImage, setCurrentImage] = useState("");
+
+  const [openProjectModal, setOpenProjectModal] = useState(false);
+  // const [projectAttrs, setProjectAttrs] = useState({project_id: 1, level: 1, element_id: 1})
+  const [projectData, setProjectData] = useState(null);
+  const [unitData, setUnitData] = useState(null);
+
+  const [displayProjectName, setDisplayProjectName] = useState(
+    "Open a Project to Start Working"
+  );
+
   // check the length of project name
   useEffect(() => {
     if (projectName.length > 32) {
@@ -67,6 +102,66 @@ const Viewer = ({projectName, setProjectName}) => {
       setProjectNameCompressed(projectName);
     }
   }, []);
+
+  useEffect(() => {
+    getProject();
+    (async function loadAPIData() {
+      await loadMarkers()
+    })();
+  }, [projectAttrs]);
+
+
+  useEffect(() => {
+    // Save markers on Database each time marker value changes
+    Object.keys(markers).length > 0 && saveMarkers()
+  }, [markers])
+  
+
+  // id: marker.data.id,
+  // type: marker.data.type,
+  // size: {height: imageData.props?.height, width: imageData.props?.width},
+  // fill: imageData.props?.fill,
+  // stroke: imageData.props?.stroke,
+  // strokeWidth: imageData.props?.strokeWidth || 2,
+  // position
+
+
+  const createPointMarker = (id, xC, yC, size) => {
+    return new MARKER_DATA.PointMarker(
+      id,
+      new MARKER_DATA.Position([{ xC: xC, yC: yC }]),
+      new MARKER_DATA.Data(...Object.values(INIT_MARKER_VALUES)),
+      "#FFFFFF",
+      size,
+    ).render();
+  };
+
+  const createLineMarker = (id, x1C, y1C, x2C, y2C, color, strokeWidth) => {
+    return new MARKER_DATA.LineMarker(
+      id,
+      new MARKER_DATA.Position([
+        { xC: x1C, yC: y1C },
+        { xC: x2C, yC: y2C },
+      ]),
+      new MARKER_DATA.Data(...Object.values(INIT_MARKER_VALUES)),
+      color,
+      strokeWidth
+    ).render();
+  };
+
+  const createAreaMarker = (id, x1C, y1C, x2C, y2C, strokeWidth, color) => {
+    return new MARKER_DATA.AreaMarker(
+      id,
+      new MARKER_DATA.Position([
+        { xC: x1C, yC: y1C },
+        { xC: x2C, yC: y2C },
+      ]),
+      new MARKER_DATA.Data(...Object.values(INIT_MARKER_VALUES)),
+      "black",
+      strokeWidth,
+      color
+    ).render();
+  };
 
   const onItemClick = (item) => {
     setClickedItem(item.name);
@@ -91,20 +186,162 @@ const Viewer = ({projectName, setProjectName}) => {
     }
   };
 
-  const onProjectNameHover = () => {
-    console.log(projectName);
+  const deselectTool = () => {
+    setIsBoxClicked(false);
+    setIsLineClicked(false);
+    setIsMapPinClicked(false);
+    setClickedItem({
+      id: 1,
+      name: "mousePointer",
+      icon: <FaMousePointer className="h-4 w-4 md:h-5 md:w-5" />,
+      clicked: true,
+    });
+  };
+
+  const loadMarkers = async () => {
+    if(projectAttrs.project_id===1) return
+    await axios.get(
+      `${BACKEND}data/get/markers?project_id=${projectAttrs.project_id}&level=${projectAttrs.level.id}&element=${projectAttrs.element_id.id}`
+    ).then(
+      response => {
+        const resMarkers = response.data?.markers
+        const newMarkers = {};
+        for (const key in resMarkers) {
+          if (Object.hasOwnProperty.call(resMarkers, key)) {
+            const marker = resMarkers[key];
+            const figure = marker.figure
+            let drawing = {}
+
+            // const winWidth = window.innerWidth
+            // const winHeight = window.innerHeight
+
+            switch(marker.data.type){
+              case 'point':
+                drawing = createPointMarker(marker.data.id, (figure.position[0].xC + figure.size.width/2), (figure.position[0].yC + figure.size.height/2), {width: figure.size.width, height: figure.size.height})
+                break
+              case 'line':
+                drawing = createLineMarker(marker.data.id, figure.position[1].xC, figure.position[1].yC, figure.position[2].xC, figure.position[2].yC, figure.stroke, figure.strokeWidth)
+                break
+              case 'area':
+                drawing = createAreaMarker(marker.data.id, figure.position[0].xC, figure.position[0].yC, figure.position[0].xC+figure.size.width, figure.position[0].yC+figure.size.height, figure.strokeWidth, figure.fill)
+                break
+              default:
+                console.log('Unknown Marker')
+            }
+
+            newMarkers[key] = {
+              ...marker,
+              figure: drawing
+            }
+          }
+        }
+        console.log(newMarkers)
+        setMarkers(newMarkers)
+        return newMarkers;
+      }
+    ).catch(error => console.log(error))
+  };
+
+  const saveMarkers = (event) => {
+    // create a new object with the same structure, but with the 'figure' properties replaced
+    const newMarkers = {};
+    for (const key in markers) {
+      if (Object.hasOwnProperty.call(markers, key)) {
+        const marker = markers[key];
+        const imageData = marker.figure
+        // const winWidth = window.innerWidth
+        // const winHeight = window.innerHeight
+        newMarkers[key] = {
+          ...marker,
+          figure: {
+            id: marker.data.id,
+            type: marker.data.type,
+            size: {height: imageData.props?.height, width: imageData.props?.width},
+            fill: imageData.props?.fill,
+            stroke: imageData.props?.stroke,
+            strokeWidth: imageData.props?.strokeWidth || 2,
+            position: [{xC: (imageData.props?.x || 0), yC: (imageData.props?.y || 0)}, {xC: (imageData.props?.x1 || 0), yC: (imageData.props?.y1 || 0)}, {xC: (imageData.props?.x2 || 0), yC: (imageData.props?.y2 || 0)}]
+            // position: [{xC: (imageData.props?.x || 0)/winWidth, yC: (imageData.props?.y || 0)/winHeight}, {xC: (imageData.props?.x1 || 0)/winWidth, yC: (imageData.props?.y1 || 0)/winHeight}, {xC: (imageData.props?.x2 || 0)/winWidth, yC: (imageData.props?.y2 || 0)/winHeight}]
+          }
+        };
+      }
+    }
+    const reqBody = {
+      project_id: projectAttrs.project_id,
+      level: projectAttrs?.level.id,
+      element: projectAttrs?.element_id.id,
+      markers: newMarkers,
+    };
+
+    axios
+      .post(`${BACKEND}data/add/markers`, reqBody)
+      .then((response) => {
+        console.log("Response:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const createToolObj = () => {
     return {
-      toolId: isMapPinClicked ? 2 : (isLineClicked ? 3 : (isBoxClicked ? 4 : 1)),
+      toolId: isMapPinClicked ? 2 : isLineClicked ? 3 : isBoxClicked ? 4 : 1,
       color: selectedColor,
       strokeSize: rangeValue,
+      deselectTool: deselectTool,
+      // deselectTool: isMapPinClicked
+      // ? setIsMapPinClicked
+      // : isLineClicked
+      // ? setIsLineClicked
+      // : isBoxClicked
+      // ? setIsBoxClicked
+      // : setIsCurserClicked
+    };
+  };
+
+  const isReloadViewer = () => {
+    getProject();
+  };
+
+  const getProject = async () => {
+    if (projectAttrs.project_id === 1) {
+      return;
+    } else {
+      await axios
+        .get(`${BACKEND}data/get/project?project_id=${projectAttrs.project_id}`)
+        .then((res) => {
+          const responseData = res.data;
+          setProjectData(responseData);
+          setDisplayProjectName(
+            `${responseData?.project_meta?.name} / ${projectAttrs?.level.id} / ${projectAttrs?.element_id.title}`
+          );
+          const level = responseData?.levels[projectAttrs?.level.id - 1];
+          console.log(level);
+          const element = level?.elements[projectAttrs?.element_id.id];
+          if (element?.image !== null) {
+            setIsImageAvailable(true);
+            setCurrentImage(
+              `${BACKEND}data/get/image/${projectAttrs.project_id}/${element.image.name}`
+            );
+            console.log(
+              `${BACKEND}data/get/image/${projectAttrs.project_id}/${element.image.name}`
+            );
+          } else {
+            setIsImageAvailable(false);
+          }
+
+          setUnitData(element);
+        })
+        .catch((error) => {
+          console.log("Some Error Occured While Fetching Project Data", error);
+          // console.log(error.errorCode, error.errorMessage)
+        });
     }
-  }
+  };
 
   return (
     <div className="mt-16">
+      {/* <button onClick={() => saveMarkers()}>TEST</button> */}
       {/* toolbar - start */}
       <div className="bg-primary-yellow2_400 dark:bg-secondary-gray500">
         <div className="lg:max-w-7xl m-auto w-full md:px-10 px-2 md:grid md:grid-cols-3">
@@ -117,7 +354,8 @@ const Viewer = ({projectName, setProjectName}) => {
                   className={classNames(
                     clickedItem === item.name
                       ? "ring-1 ring-yellow-600 bg-gray-200 text-yellow-700 dark:bg-primary-yellow200 dark:text-gray-700 dark:ring-gray-800"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-600", "p-1 rounded-md dark:text-gray-200"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-600",
+                    "p-1 rounded-md dark:text-gray-200"
                   )}
                   onClick={() => {
                     onItemClick(item);
@@ -152,7 +390,7 @@ const Viewer = ({projectName, setProjectName}) => {
                 </div>
               </div>
               <div className="hidden md:grid col-span-2 justify-end sm:mr-4 mr-2 py-1 dark:text-gray-200 ">
-                {projectNameCompressed}
+                {displayProjectName}
               </div>
             </div>
 
@@ -161,7 +399,7 @@ const Viewer = ({projectName, setProjectName}) => {
                 onMouseOver={() => setIsProjectNameHover(true)}
                 onMouseOut={() => setIsProjectNameHover(false)}
               >
-                {projectNameCompressed}
+                {displayProjectName}
               </div>
             </div>
 
@@ -174,7 +412,7 @@ const Viewer = ({projectName, setProjectName}) => {
 
           {/* third grid */}
           <div className="hidden md:flex lg:flex justify-center items-center mb-1 mt-1 ">
-          {/* <div className="hidden flex flex-row md:grid justify-center items-center mb-1 mt-1"> */}
+            {/* <div className="hidden flex flex-row md:grid justify-center items-center mb-1 mt-1"> */}
             {isLineClicked && (
               <div className="flex gap-x-3 items-center mr-1">
                 <label
@@ -230,7 +468,7 @@ const Viewer = ({projectName, setProjectName}) => {
 
                 {isColorPickerClicked && (
                   <div className="absolute origin-top right-5 top-28 p-3 rounded-lg dark:bg-secondary-gray700 z-30">
-                   {/* <div className="absolute origin-top dark:bg-secondary-gray700"> */}
+                    {/* <div className="absolute origin-top dark:bg-secondary-gray700"> */}
                     <CirclePicker
                       onChange={(color, event) => setSelectedColor(color.hex)}
                       onChangeComplete={() => setIsColorPickerClicked(false)}
@@ -291,7 +529,7 @@ const Viewer = ({projectName, setProjectName}) => {
 
                 {isColorPickerClicked && (
                   <div className="absolute origin-bottom bottom-11 p-3 rounded-lg dark:bg-secondary-gray700 z-30">
-                  {/* <div className="absolute origin-top dark:bg-secondary-gray700"> */}
+                    {/* <div className="absolute origin-top dark:bg-secondary-gray700"> */}
                     <CirclePicker
                       onChange={(color, event) => setSelectedColor(color.hex)}
                       onChangeComplete={() => setIsColorPickerClicked(false)}
@@ -331,7 +569,32 @@ const Viewer = ({projectName, setProjectName}) => {
       {/* <div className="m-auto">
         <ImageView toolData={currentTool} projectData={{}}/>
       </div> */}
-      <ImageViewSVG currentTool={createToolObj()}/>
+      {projectData ? (
+        isImageAvailable ? (
+          <ImageViewSVG
+            currentTool={createToolObj()}
+            currentImage={currentImage}
+            markers={markers}
+            setMarkers={setMarkers}
+          />
+        ) : (
+          <EmptyView
+            project_id={projectAttrs.project_id}
+            level={projectAttrs.level.id - 1}
+            element_id={projectAttrs.element_id.id}
+            isReloadViewer={isReloadViewer}
+          />
+        )
+      ) : (
+        <InitView setOpenProjectModal={setOpenProjectModal} />
+      )}
+
+      {/* Modals */}
+      <OpenProjectModal
+        openProjectModal={openProjectModal}
+        setOpenProjectModal={setOpenProjectModal}
+        setProjectAttrs={setProjectAttrs}
+      />
     </div>
   );
 };
