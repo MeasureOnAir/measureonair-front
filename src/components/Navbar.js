@@ -31,7 +31,12 @@ const profileDropdown = [
   { id: 1, title: "Sign out", path: "#" },
 ];
 
-const Navbar = ({navbarElementsArray, projectName, setProjectAttrs }) => {
+const Navbar = ({
+  navbarElementsArray,
+  projectName,
+  setProjectAttrs,
+  setScrollTo,
+}) => {
   const [user, setUser] = useState("");
   const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
   const [selectedElement, setSelectedElement] = useState("");
@@ -42,19 +47,17 @@ const Navbar = ({navbarElementsArray, projectName, setProjectAttrs }) => {
   const [openNewProjectModal, setOpenNewProjectModal] = useState(false);
   const [openProjectModal, setOpenProjectModal] = useState(false);
 
-  const [displayProjectName, setDisplayProjectName] = useState("Open A Project")
-
+  const [displayProjectName, setDisplayProjectName] =
+    useState("Open A Project");
 
   useEffect(() => {
     setNavbarElements(navbarElementsArray[1]);
-    setSelectedElement('')
+    setSelectedElement("");
   }, [navbarElementsArray]);
 
   // useEffect(() => {
   //   setDisplayProjectName(projectName)
   // }, [projectName])
-  
-  
 
   const onScroll = () => {
     if (window.scrollY >= window.screen.height - 200) {
@@ -148,6 +151,7 @@ const Navbar = ({navbarElementsArray, projectName, setProjectAttrs }) => {
                             onClick={() => {
                               // setSelectedElement(element.id);
                               onItemClick(element);
+                              setScrollTo(element.scrollTo);
                             }}
                           >
                             {/* rendering subItems from the navbar */}
@@ -204,9 +208,7 @@ const Navbar = ({navbarElementsArray, projectName, setProjectAttrs }) => {
                                 </Menu>
                               </div>
                             ) : (
-                              <Link
-                                to={element.path}
-                              >{element.title}</Link>
+                              <Link to={element.path}>{element.title}</Link>
                             )}
                           </div>
                         );
@@ -227,10 +229,9 @@ const Navbar = ({navbarElementsArray, projectName, setProjectAttrs }) => {
                   {/* modal - end */}
                 </div>
                 <div className="flex items-center">
-                  {user ? (
+                  {/* {user ? (
                     <>
                       <div className="md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-                        {/* Profile dropdown */}
                         <Menu as="div" className="ml-3 relative">
                           <div>
                             <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200 dark:focus:ring-gray-500 dark:bg-gray-400">
@@ -280,29 +281,37 @@ const Navbar = ({navbarElementsArray, projectName, setProjectAttrs }) => {
                   ) : (
                     <>
                       <div className="flex-shrink-0">
-                        <Link
-                         to={'/viewer'}
-                        >
-                        <button
-                          type="button"
-                          className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
+                        <Link to={"/viewer"}>
+                          <button
+                            type="button"
+                            className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
                           dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
-                        
-                          onClick={() => {
-                            setUser("Lahiru")
-                          }
-                        }
-                        >
-                          <PlusSmallIcon
+                            onClick={() => {
+                              setUser("Lahiru");
+                            }}
+                          >
+                            <PlusSmallIcon
                             className="-ml-1 mr-2 h-5 w-5"
                             aria-hidden="true"
                           />
-                          <span>Sign In</span>
-                        </button>
+                            <span>Sign Up</span>
+                          </button>
                         </Link>
                       </div>
                     </>
-                  )}
+                  )} */}
+
+                  <div className="flex-shrink-0">
+                    <Link to={"/viewer"}>
+                      <button
+                        type="button"
+                        className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
+                          dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
+                      >
+                        <span>Viewer</span>
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -311,11 +320,9 @@ const Navbar = ({navbarElementsArray, projectName, setProjectAttrs }) => {
             <Disclosure.Panel className="md:hidden absolute w-full">
               <div className="bg-primary-yellow200 rounded-lg py-4 mx-2 mt-1 shadow-xl dark:bg-secondary-gray600">
                 <div className="pt-2 pb-3 space-y-1 ">
-                  
-                  <div className="border-b mt-0 pb-2 mx-3 border-gray-500">
-                  <div className="px-1 sm:px-3">{displayProjectName}</div>
-                  {/* <hr className="mx-3 mt-3 " /> */}
-                  </div>
+                  {/* <div className="border-b mt-0 pb-2 mx-3 border-gray-500">
+                    <div className="px-1 sm:px-3">{displayProjectName}</div>
+                  </div> */}
                   {navbarElements &&
                     navbarElements.map((element, elementIdx) => {
                       return (
@@ -331,6 +338,7 @@ const Navbar = ({navbarElementsArray, projectName, setProjectAttrs }) => {
                             onClick={() => {
                               // setSelectedElement(element.id);
                               onItemClick(element);
+                              setScrollTo(element.scrollTo);
                             }}
                           >
                             {/* rendering subItems from the navbar */}
