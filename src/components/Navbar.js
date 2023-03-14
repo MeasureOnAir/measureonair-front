@@ -22,7 +22,7 @@ const canvasNavbarElementsArray = [
   { id: 1, title: "New", path: "#", selected: false },
   { id: 2, title: "Open", path: "#", selected: false },
   { id: 3, title: "Save", path: "#", selected: true },
-  { id: 4, title: "Export", path: "/", selected: false },
+  { id: 4, title: "Export", path: "#", selected: false },
 ];
 
 const profileDropdown = [
@@ -31,7 +31,7 @@ const profileDropdown = [
   { id: 1, title: "Sign out", path: "#" },
 ];
 
-const Navbar = ({navbarElementsArray, projectName }) => {
+const Navbar = ({navbarElementsArray, projectName, setProjectAttrs }) => {
   const [user, setUser] = useState("");
   const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
   const [selectedElement, setSelectedElement] = useState("");
@@ -42,11 +42,19 @@ const Navbar = ({navbarElementsArray, projectName }) => {
   const [openNewProjectModal, setOpenNewProjectModal] = useState(false);
   const [openProjectModal, setOpenProjectModal] = useState(false);
 
+  const [displayProjectName, setDisplayProjectName] = useState("Open A Project")
+
 
   useEffect(() => {
     setNavbarElements(navbarElementsArray[1]);
     setSelectedElement('')
   }, [navbarElementsArray]);
+
+  // useEffect(() => {
+  //   setDisplayProjectName(projectName)
+  // }, [projectName])
+  
+  
 
   const onScroll = () => {
     if (window.scrollY >= window.screen.height - 200) {
@@ -214,6 +222,7 @@ const Navbar = ({navbarElementsArray, projectName }) => {
                   <OpenProjectModal
                     openProjectModal={openProjectModal}
                     setOpenProjectModal={setOpenProjectModal}
+                    setProjectAttrs={setProjectAttrs}
                   />
                   {/* modal - end */}
                 </div>
@@ -304,7 +313,7 @@ const Navbar = ({navbarElementsArray, projectName }) => {
                 <div className="pt-2 pb-3 space-y-1 ">
                   
                   <div className="border-b mt-0 pb-2 mx-3 border-gray-500">
-                  <div className="px-1 sm:px-3">{projectName}</div>
+                  <div className="px-1 sm:px-3">{displayProjectName}</div>
                   {/* <hr className="mx-3 mt-3 " /> */}
                   </div>
                   {navbarElements &&

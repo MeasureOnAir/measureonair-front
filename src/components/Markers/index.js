@@ -21,26 +21,29 @@ class Data {
 }
 
 class MarkerBase {
-  constructor(position, data) {
+  constructor(id, position, data) {
+    this.id = id;
     this.position = position;
     this.data = data;
   }
 }
 
 class PointMarker extends MarkerBase {
-  constructor(position, data, color) {
-    super(position, data);
+  constructor(id, position, data, color, size) {
+    super(id, position, data);
     this.color = color;
+    this.size = size;
   }
 
   render() {
-    console.log(this.position.coordinates);
+    // console.log(this.position.coordinates);
     return (
       <image
-        x={this.position.coordinates[0].xC - 40}
-        y={this.position.coordinates[0].yC - 40}
-        width={80}
-        height={80}
+        id={this.id}
+        x={this.position.coordinates[0].xC - this.size.width/2}
+        y={this.position.coordinates[0].yC - this.size.height/2}
+        width={this.size.width}
+        height={this.size.height}
         href={MarkerSVG}
       />
     );
@@ -48,8 +51,8 @@ class PointMarker extends MarkerBase {
 }
 
 class LineMarker extends MarkerBase {
-  constructor(position, data, color, strokeSize) {
-    super(position, data);
+  constructor(id, position, data, color, strokeSize) {
+    super(id, position, data);
     this.color = color;
     this.strokeSize = strokeSize;
   }
@@ -57,6 +60,7 @@ class LineMarker extends MarkerBase {
   render() {
     return (
       <line
+        id={this.id}
         x1={this.position.coordinates[0].xC}
         y1={this.position.coordinates[0].yC}
         x2={this.position.coordinates[1].xC}
@@ -69,8 +73,8 @@ class LineMarker extends MarkerBase {
 }
 
 class AreaMarker extends MarkerBase {
-  constructor(position, data, borderColor, borderWidth, fillColor) {
-    super(position, data);
+  constructor(id, position, data, borderColor, borderWidth, fillColor) {
+    super(id, position, data);
     this.borderColor = borderColor;
     this.borderWidth = borderWidth;
     this.fillColor = fillColor;
@@ -79,6 +83,7 @@ class AreaMarker extends MarkerBase {
   render() {
     return (
       <rect
+        id={this.id}
         x={Math.min(this.position.coordinates[0].xC, this.position.coordinates[1].xC)}
         y={Math.min(this.position.coordinates[0].yC, this.position.coordinates[1].yC)}
         width={Math.abs(this.position.coordinates[1].xC - this.position.coordinates[0].xC)}
