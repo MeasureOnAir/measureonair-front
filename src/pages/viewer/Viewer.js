@@ -65,6 +65,8 @@ const Viewer = ({
   setProjectAttrs,
   markers,
   setMarkers,
+  setExcelUrl,
+  setExcelFilename
 }) => {
   const [projectNameCompressed, setProjectNameCompressed] = useState("");
   const [rangeValue, setRangeValue] = useState(5);
@@ -594,6 +596,8 @@ const Viewer = ({
         openProjectModal={openProjectModal}
         setOpenProjectModal={setOpenProjectModal}
         setProjectAttrs={setProjectAttrs}
+        setExcelUrl={setExcelUrl}
+        setExcelFilename={setExcelFilename}
       />
     </div>
   );
