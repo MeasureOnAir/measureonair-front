@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { CheckIcon, ClockIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import Tape from '../../assets/features/tape.png'
+import Plan from '../../assets/features/plan.png'
+import Spreadsheet from '../../assets/features/spreadsheet.png'
 
 const products = [
   {
@@ -58,8 +61,9 @@ const featuresArray = [
     title: 'View Building Plans Easily',
     description:
       "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    // imageSrc:
+    //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    imageSrc: Plan,
     imageAlt: "Front of men's Basic Tee in black",
   },
   {
@@ -68,8 +72,9 @@ const featuresArray = [
     title: "Add Different Measures",
     description:
       "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    // imageSrc:
+    //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    imageSrc: Tape,
     imageAlt: "Front of men's Basic Tee in black",
   },
   {
@@ -78,8 +83,9 @@ const featuresArray = [
     title: "Generate Spreadsheet Automatically",
     description:
       "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    // imageSrc:
+    //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    imageSrc: Spreadsheet,
     imageAlt: "Front of men's Basic Tee in black",
   },
 ];
@@ -106,7 +112,7 @@ const Features = () => {
                     <img
                       src={feature.imageSrc}
                       alt={feature.imageAlt}
-                      className="w-28 h-28 rounded-md object-center object-cover sm:w-48 sm:h-48"
+                      className="w-28 h-28 rounded-md object-center object-contain sm:w-48 sm:h-48"
                     />
                   </div>
 
@@ -156,7 +162,7 @@ const Features = () => {
                     <img
                       src={feature.imageSrc}
                       alt={feature.imageAlt}
-                      className="w-28 h-28 rounded-md object-center object-cover sm:w-48 sm:h-48"
+                      className="w-28 h-28 rounded-md object-center object-contain sm:w-48 sm:h-48"
                     />
                   </div>
                 </>
@@ -168,7 +174,7 @@ const Features = () => {
 
       {/* desktop view - start */}
       <div className="hidden md:block dark:bg-transparent">
-        <div className="max-w-2xl mx-auto py-5 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="max-w-2xl mx-auto py-5 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="flex items-center justify-between space-x-4 mb-12">
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-gray-900 dark:text-gray-200">
               Features
@@ -183,7 +189,8 @@ const Features = () => {
                     <img
                       src={feature.imageSrc}
                       alt={feature.imageAlt}
-                      className="h-40 w-40"
+                      // className="h-40 w-40"
+                      className="w-28 h-28 object-center object-contain sm:w-48 sm:h-48"
                     />
                   </div>
 
