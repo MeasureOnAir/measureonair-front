@@ -9,10 +9,10 @@ import { createBrowserHistory } from "history";
 // let history = createBrowserHistory();
 
 const navbarElementsArray = [
-  { id: 1, title: "Features", path: "#", selected: false },
-  { id: 2, title: "About Us", path: "#", selected: false },
-  { id: 3, title: "Our team", path: "#", selected: true },
-  { id: 4, title: "Our partners", path: "/viewer", selected: false },
+  { id: 1, title: "Features", path: "#", scrollTo: 'features_id',  selected: false },
+  { id: 2, title: "About Us", path: "#", scrollTo: 'aboutUs_id', selected: false },
+  { id: 3, title: "Our team", path: "#", scrollTo: 'ourTeam_id', selected: true },
+  { id: 4, title: "Our partners", path: "#", scrollTo: 'ourPartners_id', selected: false },
 ];
 
 const canvasNavbarElementsArray = [
@@ -25,10 +25,11 @@ const canvasNavbarElementsArray = [
       // { id: 1_3, title: "Element", path: "#" },
     ],
     path: "#",
+    scrollTo: '',
     selected: false,
   },
-  { id: 2, title: "Open", path: "#", selected: false },
-  { id: 3, title: "Export", path: "#", selected: false },
+  { id: 2, title: "Open", path: "#", scrollTo: '', selected: false },
+  { id: 3, title: "Export", path: "#", scrollTo: '', selected: false },
 ];
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
   });
 
   const [markers, setMarkers] = useState({});
+  const [scrollTo, setScrollTo] = useState('heroSection_id')
 
   const location = useLocation();
 
@@ -66,9 +68,10 @@ function App() {
         navbarElementsArray={navbarElements}
         projectName={projectName}
         setProjectAttrs={setProjectAttrs}
+        setScrollTo = {setScrollTo}
       />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home scrollTo = {scrollTo} />} />
         <Route
           path="/viewer"
           element={
