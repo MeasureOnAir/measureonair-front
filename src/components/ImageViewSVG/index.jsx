@@ -54,8 +54,11 @@ export default function App({
   // const { generateMarkerId, setLastMarkerId } = useGenerateId();
 
   useEffect(() => {
+    // Viewer.current.fitSelection(0, 0, window.innerWidth, window.innerHeight)
     Viewer.current.fitToViewer();
   }, []);
+
+
 
 
 
@@ -108,7 +111,8 @@ export default function App({
   };
 
   const handleClick = (event) => {
-    console.log("click", event.x, event.y, event.originalEvent)
+    // console.log("click", event.x, event.y, event.originalEvent)
+    console.log("click", event.x, event.y, event.scaleFactor, event.translationX, event.translationY)
     // setCurrentItem(event.originalEvent.target.attributes)
 
     switch (currentTool.toolId) {
@@ -211,10 +215,11 @@ export default function App({
                 // onPan={(e) => console.log("pan")}
                 onClick={handleClick}
               >
-                <svg width={dims.widthW} height={dims.heightW}>
+                <svg viewBox={`0 0 1600 1200`}>
+                {/* width={dims.widthW} height={dims.heightW} */}
                   <image
-                    width={dims.widthW}
-                    height={dims.heightW}
+                    // width={dims.widthW}
+                    // height={dims.heightW}
                     href={currentImage}
                   />
                   {Object.values(markers).map((value, index) => {
