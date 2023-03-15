@@ -262,7 +262,8 @@ const Viewer = ({
             fill: imageData.props?.fill,
             stroke: imageData.props?.stroke,
             strokeWidth: imageData.props?.strokeWidth || 2,
-            position: [{xC: (imageData.props?.x || 0), yC: (imageData.props?.y || 0)}, {xC: (imageData.props?.x1 || 0), yC: (imageData.props?.y1 || 0)}, {xC: (imageData.props?.x2 || 0), yC: (imageData.props?.y2 || 0)}]
+            position: [{xC: (imageData.props?.x || 0), yC: (imageData.props?.y || 0)}, {xC: (imageData.props?.x1 || 0), yC: (imageData.props?.y1 || 0)}, {xC: (imageData.props?.x2 || 0), yC: (imageData.props?.y2 || 0)}],
+            viewPort: {width: window.innerWidth, height: window.innerHeight}
             // position: [{xC: (imageData.props?.x || 0)/winWidth, yC: (imageData.props?.y || 0)/winHeight}, {xC: (imageData.props?.x1 || 0)/winWidth, yC: (imageData.props?.y1 || 0)/winHeight}, {xC: (imageData.props?.x2 || 0)/winWidth, yC: (imageData.props?.y2 || 0)/winHeight}]
           }
         };

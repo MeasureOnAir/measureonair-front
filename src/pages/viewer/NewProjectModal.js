@@ -38,9 +38,6 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
     // } else {
     //   alert(`Error: ${error}`)
     // }
-
-    // {error && <p>Error: {error}</p>}
-    // {success && <p>Project Created Successfully!</p>}
     
     setSelectedElements([])
     setOpenNewProjectModal(false)
@@ -245,6 +242,8 @@ const NewProjectModal = ({ openNewProjectModal, setOpenNewProjectModal }) => {
                   >
                     {isLoading ? "Creating..." : "Create"}
                   </button>
+                  {error && <p>Error: {error}</p>}
+                  {success && <p>Project Created Successfully!</p>}
 
                 </div>
               </div>
