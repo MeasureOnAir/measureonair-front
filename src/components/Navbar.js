@@ -37,7 +37,9 @@ const Navbar = ({
   setProjectAttrs,
   setScrollTo,
   excelUrl,
-  excelFilename
+  excelFilename,
+  setExcelUrl,
+  setExcelFilename
 }) => {
   const [user, setUser] = useState("");
   const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
@@ -263,6 +265,8 @@ const Navbar = ({
                     openProjectModal={openProjectModal}
                     setOpenProjectModal={setOpenProjectModal}
                     setProjectAttrs={setProjectAttrs}
+                    setExcelUrl={setExcelUrl}
+                    setExcelFilename={setExcelFilename}
                   />
                   {/* modal - end */}
                 </div>

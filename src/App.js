@@ -73,6 +73,8 @@ function App() {
         setScrollTo = {setScrollTo}
         excelUrl={excelUrl}
         excelFilename={excelFilename}
+        setExcelUrl={setExcelUrl}
+        setExcelFilename={setExcelFilename}
       />
       <Routes>
         <Route path="/" element={<Home scrollTo = {scrollTo} />} />
