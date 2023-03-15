@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { BACKEND } from "../../constants/endpoints";
 
 const useCreateProject = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +20,7 @@ const useCreateProject = () => {
             "elements": elements
           }
 
-        const response = await axios.post("http://localhost:8000/data/add/project", formData);
+        const response = await axios.post(`${BACKEND}data/add/project`, formData);
 
         setSuccess(true);
         setIsLoading(false);
