@@ -7,6 +7,9 @@ import Dropdown from "../../components/Dropdown";
 const unitList = [
   { id: 1, title: "meter" },
   { id: 2, title: "feet" },
+  { id: 3, title: "centimeter" },
+  { id: 4, title: "inch" },
+  { id: 5, title: "unit" },
 ];
 
 const NewMarkerModal = ({ openNewMarkerModal, setOpenNewMarkerModal, currentMarkerData, setCurrentMarkerData, markers, setMarkers }) => {
