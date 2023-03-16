@@ -90,7 +90,7 @@ const ELEMENT_DICT = {
   'roof': 'EL006'
 }
 
-const OpenProjectModal = ({ openProjectModal, setOpenProjectModal, setProjectAttrs }) => {
+const OpenProjectModal = ({ openProjectModal, setOpenProjectModal, setProjectAttrs, setExcelUrl, setExcelFilename }) => {
   // const [selectedProjectName, setSelectedProjectName] = useState(
   //   projectDetails[0]
   // );
@@ -288,7 +288,12 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal, setProjectAtt
                   "
                     onClick={() => {
                       setProjectAttrs({project_id: selectedProject.id, level: selectedLevel, element_id: selectedElement})
+
                       setOpenProjectModal(false)
+
+                      setExcelUrl(`${BACKEND}data/get/excel?project_id=${selectedProject.id}&level=${selectedLevel.id}&element_id=${selectedElement.id}`)
+                      setExcelFilename(`${selectedProject.title}_${selectedLevel.id}_${selectedElement.title}.xlsx`)
+
                     }}
                   >
                     Open

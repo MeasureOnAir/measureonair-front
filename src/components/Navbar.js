@@ -36,6 +36,10 @@ const Navbar = ({
   projectName,
   setProjectAttrs,
   setScrollTo,
+  excelUrl,
+  excelFilename,
+  setExcelUrl,
+  setExcelFilename
 }) => {
   const [user, setUser] = useState("Lahiru");
   const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
@@ -84,9 +88,12 @@ const Navbar = ({
   // checking navbar items
   const onItemClick = (item) => {
     setSelectedElement(item.id);
-    if (item.title == "Open") {
+    if (item.title === "Open") {
       setOpenProjectModal(true);
     }
+    if (item.title === "Export") {
+      excelUrl ? downloadSpreadsheet() : alert("Please Open a Project Before Exporting...")
+    } 
   };
 
   // checking sub item of 'New'
@@ -96,6 +103,39 @@ const Navbar = ({
       setOpenNewProjectModal(true);
     }
   };
+
+  const downloadSpreadsheet = () => {
+    fetch(excelUrl, {
+        method: 'GET',
+        headers: {
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        },
+    })
+    .then((response) => response.blob())
+    .then((blob) => {
+        // Create blob link to download
+        const url = window.URL.createObjectURL(
+        new Blob([blob]),
+        );
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute(
+        'download',
+        `${excelFilename}`
+        // `${projectData.project_name}_${levelData.floor_no}_${elementData.element_name}.xlsx`,
+        );
+
+        // Append to html link element page
+        document.body.appendChild(link);
+
+        // Start download
+        link.click();
+
+        // Clean up and remove the link
+        link.parentNode.removeChild(link);
+    });
+
+}
 
   return (
     <>
@@ -215,8 +255,8 @@ const Navbar = ({
                                   </Transition>
                                 </Menu>
                               </div>
-                            ) : (
-                              <Link to={element.path}>{element.title}</Link>
+                            ) : ( 
+                            <Link to={element.path}>{element.title}</Link>
                             )}
                           </div>
                         );
@@ -233,6 +273,8 @@ const Navbar = ({
                     openProjectModal={openProjectModal}
                     setOpenProjectModal={setOpenProjectModal}
                     setProjectAttrs={setProjectAttrs}
+                    setExcelUrl={setExcelUrl}
+                    setExcelFilename={setExcelFilename}
                   />
                   {/* modal - end */}
                 </div>

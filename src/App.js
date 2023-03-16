@@ -49,6 +49,8 @@ function App() {
 
   const [markers, setMarkers] = useState({});
   const [scrollTo, setScrollTo] = useState('heroSection_id')
+  const [excelUrl, setExcelUrl] = useState(null)
+  const [excelFilename, setExcelFilename] = useState("Untitled.xlsx")
 
   const location = useLocation();
 
@@ -69,6 +71,10 @@ function App() {
         projectName={projectName}
         setProjectAttrs={setProjectAttrs}
         setScrollTo = {setScrollTo}
+        excelUrl={excelUrl}
+        excelFilename={excelFilename}
+        setExcelUrl={setExcelUrl}
+        setExcelFilename={setExcelFilename}
       />
       <Routes>
         <Route path="/" element={<Home scrollTo = {scrollTo} />} />
@@ -82,6 +88,8 @@ function App() {
               setProjectAttrs={setProjectAttrs}
               markers={markers}
               setMarkers={setMarkers}
+              setExcelUrl={setExcelUrl}
+              setExcelFilename={setExcelFilename}
             />
           }
         />
