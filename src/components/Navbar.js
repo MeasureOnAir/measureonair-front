@@ -41,7 +41,7 @@ const Navbar = ({
   setExcelUrl,
   setExcelFilename
 }) => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState("Lahiru");
   const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
   const [selectedElement, setSelectedElement] = useState("");
   const [profileElements, setProfileElements] = useState(profileDropdown);
@@ -50,12 +50,20 @@ const Navbar = ({
   const [openModal, setOpen] = useState(true);
   const [openNewProjectModal, setOpenNewProjectModal] = useState(false);
   const [openProjectModal, setOpenProjectModal] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(false);
 
   const [displayProjectName, setDisplayProjectName] =
     useState("Open A Project");
 
   useEffect(() => {
     setNavbarElements(navbarElementsArray[1]);
+
+    if (navbarElementsArray[0] == "home") {
+      setIsHomePage(true);
+    } else {
+      setIsHomePage(false);
+    }
+
     setSelectedElement("");
   }, [navbarElementsArray]);
 
@@ -271,89 +279,94 @@ const Navbar = ({
                   {/* modal - end */}
                 </div>
                 <div className="flex items-center">
-                  {/* {user ? (
-                    <>
-                      <div className="md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-                        <Menu as="div" className="ml-3 relative">
-                          <div>
-                            <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200 dark:focus:ring-gray-500 dark:bg-gray-400">
-                              <span className="sr-only">Open user menu</span>
-                              <img
-                                className="h-8 w-8 md:h-9 md:w-9 rounded-full ring-2 ring-amber-300 ring-offset-1 ring-offset-gray-400 dark:ring-amber-500"
-                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                alt=""
-                              />
-                            </Menu.Button>
-                          </div>
-                          <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-200"
-                            enterFrom="transform opacity-0 scale-95"
-                            enterTo="transform opacity-100 scale-100"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 scale-100"
-                            leaveTo="transform opacity-0 scale-95"
-                          >
-                            <Menu.Items className=" origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-secondary-gray600 dark:ring-gray-500">
-                              {profileElements &&
-                                profileElements.map((element, idx) => {
-                                  return (
-                                    <Menu.Item>
-                                      {({ active }) => (
-                                        <a
-                                          href="#"
-                                          className={classNames(
-                                            active
-                                              ? "bg-gray-100 dark:bg-transparent"
-                                              : "",
-                                            "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                          )}
-                                        >
-                                          {element.title}
-                                        </a>
-                                      )}
-                                    </Menu.Item>
-                                  );
-                                })}
-                            </Menu.Items>
-                          </Transition>
-                        </Menu>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="flex-shrink-0">
-                        <Link to={"/viewer"}>
-                          <button
-                            type="button"
-                            className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
+                  {isHomePage && (
+                    <div className="hidden md:flex flex-shrink-0">
+                      <Link to={"/viewer"}>
+                        <button
+                          type="button"
+                          className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
                           dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
-                            onClick={() => {
-                              setUser("Lahiru");
-                            }}
-                          >
-                            <PlusSmallIcon
-                            className="-ml-1 mr-2 h-5 w-5"
-                            aria-hidden="true"
-                          />
-                            <span>Sign Up</span>
-                          </button>
-                        </Link>
-                      </div>
-                    </>
-                  )} */}
+                        >
+                          <span>Viewer</span>
+                        </button>
+                      </Link>
+                    </div>
+                  )}
 
-                  <div className="flex-shrink-0">
-                    <Link to={"/viewer"}>
-                      <button
-                        type="button"
-                        className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
-                          dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
-                      >
-                        <span>Viewer</span>
-                      </button>
-                    </Link>
-                  </div>
+                  {
+                    user && (
+                      <>
+                        <div className="md:ml-4 md:flex-shrink-0 md:flex md:items-center">
+                          <Menu as="div" className="ml-3 relative">
+                            <div>
+                              <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-yellow200 dark:focus:ring-gray-500 dark:bg-gray-400">
+                                <span className="sr-only">Open user menu</span>
+                                <img
+                                  className="h-8 w-8 md:h-9 md:w-9 rounded-full ring-2 ring-amber-300 ring-offset-1 ring-offset-gray-400 dark:ring-amber-500"
+                                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                  alt=""
+                                />
+                              </Menu.Button>
+                            </div>
+                            <Transition
+                              as={Fragment}
+                              enter="transition ease-out duration-200"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
+                            >
+                              <Menu.Items className=" origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-secondary-gray600 dark:ring-gray-500">
+                                {profileElements &&
+                                  profileElements.map((element, idx) => {
+                                    return (
+                                      <Menu.Item>
+                                        {({ active }) => (
+                                          <a
+                                            href="#"
+                                            className={classNames(
+                                              active
+                                                ? "bg-gray-100 dark:bg-transparent"
+                                                : "",
+                                              "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 dark:text-gray-300 dark:hover:bg-gray-700"
+                                            )}
+                                          >
+                                            {element.title}
+                                          </a>
+                                        )}
+                                      </Menu.Item>
+                                    );
+                                  })}
+                              </Menu.Items>
+                            </Transition>
+                          </Menu>
+                        </div>
+                      </>
+                    )
+                    // : (
+                    //   <>
+                    //     <div className="flex-shrink-0">
+                    //       <Link to={"/viewer"}>
+                    //         <button
+                    //           type="button"
+                    //           className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500
+                    //         dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
+                    //           onClick={() => {
+                    //             setUser("Lahiru");
+                    //           }}
+                    //         >
+                    //           <PlusSmallIcon
+                    //           className="-ml-1 mr-2 h-5 w-5"
+                    //           aria-hidden="true"
+                    //         />
+                    //           <span>Sign Up</span>
+                    //         </button>
+                    //       </Link>
+                    //     </div>
+                    //   </>
+                    // )
+                  }
                 </div>
               </div>
             </div>
@@ -365,6 +378,24 @@ const Navbar = ({
                   {/* <div className="border-b mt-0 pb-2 mx-3 border-gray-500">
                     <div className="px-1 sm:px-3">{displayProjectName}</div>
                   </div> */}
+
+                  {isHomePage && (
+                    <div>
+                      <div className="md:hidden flex flex-shrink-0">
+                        <Link to={"/viewer"} className={"w-full mx-4"}>
+                          <button
+                            type="button"
+                            className="relative w-full inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
+                          dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
+                          >
+                            <span>Viewer</span>
+                          </button>
+                        </Link>
+                      </div>
+                      <div className="mt-4 mx-2 border-b border-gray-500"></div>
+                    </div>
+                  )}
+
                   {navbarElements &&
                     navbarElements.map((element, elementIdx) => {
                       return (
