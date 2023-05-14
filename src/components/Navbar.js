@@ -3,9 +3,9 @@ import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { PlusSmallIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation } from "react-router-dom";
-import MOA_Horizontal_Logo from "../assets/moa-logo-horizontal.svg";
-import NewProjectModal from "../pages/viewer/NewProjectModal";
-import OpenProjectModal from "../pages/viewer/OpenProjectModal";
+import MOA_Horizontal_Logo from "../assets/logo/moa-logo-horizontal.svg";
+import NewProjectModal from "../modals/NewProjectModal";
+import OpenProjectModal from "../modals/OpenProjectModal";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -271,7 +271,18 @@ const Navbar = ({
                   {/* modal - end */}
                 </div>
                 <div className="flex items-center">
-                  {/* {user ? (
+                {user && <div className="flex-shrink-0">
+                    <Link to={"/viewer"}>
+                      <button
+                        type="button"
+                        className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
+                          dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
+                      >
+                        <span>Viewer</span>
+                      </button>
+                    </Link>
+                  </div>}
+                  {user ? (
                     <>
                       <div className="md:ml-4 md:flex-shrink-0 md:flex md:items-center">
                         <Menu as="div" className="ml-3 relative">
@@ -341,19 +352,7 @@ const Navbar = ({
                         </Link>
                       </div>
                     </>
-                  )} */}
-
-                  <div className="flex-shrink-0">
-                    <Link to={"/viewer"}>
-                      <button
-                        type="button"
-                        className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
-                          dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
-                      >
-                        <span>Viewer</span>
-                      </button>
-                    </Link>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

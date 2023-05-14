@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import Home from "./pages/homePage/Home";
-import Viewer from "./pages/viewer/Viewer";
+import Home from "./pages/home";
+import Viewer from "./pages/viewer";
+import Signin from "./pages/signin";
+import Signup from "./pages/signup";
+import Profile from "./pages/profile";
+import ForgotPassword from "./pages/forgot-password";
 
-import { createBrowserHistory } from "history";
-// let history = createBrowserHistory();
 
 const navbarElementsArray = [
   { id: 1, title: "Features", path: "#", scrollTo: 'features_id',  selected: false },
@@ -93,6 +95,10 @@ function App() {
             />
           }
         />
+        <Route path="/signin" element={<Signin/>} />
+        <Route path="/signup" element={<Signup/>} />
+        <Route path="/profile" element={<Profile/>} />
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
       </Routes>
       {/* </BrowserRouter> */}
     </>

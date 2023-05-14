@@ -1,4 +1,4 @@
-import MarkerSVG from "../../assets/marker-filled.svg";
+import MarkerSVG from "../../assets/markers/marker-filled.svg";
 
 class Position {
   constructor(coordinates) {

@@ -1,6 +1,6 @@
 import React from "react";
-import MOA_Only_Logo from '../assets/moa-logo-only.svg'
-import MOA_Horizontal_Logo from '../assets/moa-logo-horizontal.svg'
+import MOA_Only_Logo from '../assets/logo/moa-logo-only.svg'
+import MOA_Horizontal_Logo from '../assets/logo/moa-logo-horizontal.svg'
 
 const navigation = {
   solutions: [
