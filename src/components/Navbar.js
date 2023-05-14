@@ -41,7 +41,7 @@ const Navbar = ({
   setExcelUrl,
   setExcelFilename
 }) => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState("Lahiru");
   const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
   const [selectedElement, setSelectedElement] = useState("");
   const [profileElements, setProfileElements] = useState(profileDropdown);
@@ -50,12 +50,20 @@ const Navbar = ({
   const [openModal, setOpen] = useState(true);
   const [openNewProjectModal, setOpenNewProjectModal] = useState(false);
   const [openProjectModal, setOpenProjectModal] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(false);
 
   const [displayProjectName, setDisplayProjectName] =
     useState("Open A Project");
 
   useEffect(() => {
     setNavbarElements(navbarElementsArray[1]);
+
+    if (navbarElementsArray[0] == "home") {
+      setIsHomePage(true);
+    } else {
+      setIsHomePage(false);
+    }
+
     setSelectedElement("");
   }, [navbarElementsArray]);
 
@@ -364,6 +372,24 @@ const Navbar = ({
                   {/* <div className="border-b mt-0 pb-2 mx-3 border-gray-500">
                     <div className="px-1 sm:px-3">{displayProjectName}</div>
                   </div> */}
+
+                  {isHomePage && (
+                    <div>
+                      <div className="md:hidden flex flex-shrink-0">
+                        <Link to={"/viewer"} className={"w-full mx-4"}>
+                          <button
+                            type="button"
+                            className="relative w-full inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
+                          dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
+                          >
+                            <span>Viewer</span>
+                          </button>
+                        </Link>
+                      </div>
+                      <div className="mt-4 mx-2 border-b border-gray-500"></div>
+                    </div>
+                  )}
+
                   {navbarElements &&
                     navbarElements.map((element, elementIdx) => {
                       return (
