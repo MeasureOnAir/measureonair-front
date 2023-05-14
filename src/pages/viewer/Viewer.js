@@ -7,10 +7,10 @@ import { IoColorPaletteOutline } from "react-icons/io5";
 import { TbRectangle, TbMinusVertical } from "react-icons/tb";
 import { CirclePicker } from "react-color";
 
-import ImageViewSVG from "../../components/ImageViewSVG";
-import EmptyView from "../../components/EmptyView";
-import InitView from "../../components/InitView";
-import OpenProjectModal from "./OpenProjectModal";
+import ImageViewSVG from "../../views/ImageViewSVG";
+import EmptyView from "../../views/EmptyView";
+import InitView from "../../views/InitView";
+import OpenProjectModal from "../../modals/OpenProjectModal";
 import axios from "axios";
 import { BACKEND } from "../../constants/endpoints";
 import * as MARKER_DATA from "../../components/Markers";
