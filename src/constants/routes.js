@@ -1,0 +1,6 @@
+export const HOME = "/"
+export const VIEWER = "/viewer"
+export const SIGNIN = "/signin"
+export const SIGNUP = "/signup"
+export const FORGOT_PASSWORD = "/forgot-password"
+export const PROFILE = "/profile"

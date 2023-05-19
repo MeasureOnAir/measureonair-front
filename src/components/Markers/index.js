@@ -36,7 +36,6 @@ class PointMarker extends MarkerBase {
   }
 
   render() {
-    // console.log(this.position.coordinates);
     return (
       <image
         id={this.id}

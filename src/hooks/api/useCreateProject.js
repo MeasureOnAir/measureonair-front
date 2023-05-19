@@ -7,7 +7,7 @@ const useCreateProject = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  const creatProject = async (project_name, project_details, num_floors, elements) => {
+  const creatProject = async (project_name, project_details, num_floors, elements, user_id) => {
     setIsLoading(true);
     setError(null);
 
@@ -20,7 +20,7 @@ const useCreateProject = () => {
             "elements": elements
           }
 
-        const response = await axios.post(`${BACKEND}data/add/project`, formData);
+        const response = await axios.post(`${BACKEND}data/add/project?user_id=${user_id}`, formData);
 
         setSuccess(true);
         setIsLoading(false);
