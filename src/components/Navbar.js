@@ -1,14 +1,16 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
-import { PlusSmallIcon } from "@heroicons/react/24/solid";
-import { Link, useLocation } from "react-router-dom";
-import MOA_Horizontal_Logo from "../assets/logo/moa-logo-horizontal.svg";
-import NewProjectModal from "../modals/NewProjectModal";
-import OpenProjectModal from "../modals/OpenProjectModal";
+import React, { Fragment, useEffect, useState } from 'react'
+import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
+import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline'
+import { PlusSmallIcon } from '@heroicons/react/24/solid'
+import { Link, useLocation } from 'react-router-dom'
+import MOA_Horizontal_Logo from '../assets/logo/moa-logo-horizontal.svg'
+import NewProjectModal from '../modals/NewProjectModal'
+import OpenProjectModal from '../modals/OpenProjectModal'
+import { useAuthContext } from '../hooks/auth/useAuthContext'
+import { useSignOut } from '../hooks/auth/useSignOut'
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ')
 }
 
 // const navbarElementsArray = [
@@ -19,17 +21,17 @@ function classNames(...classes) {
 // ];
 
 const canvasNavbarElementsArray = [
-  { id: 1, title: "New", path: "#", selected: false },
-  { id: 2, title: "Open", path: "#", selected: false },
-  { id: 3, title: "Save", path: "#", selected: true },
-  { id: 4, title: "Export", path: "#", selected: false },
-];
+  { id: 1, title: 'New', path: '#', selected: false },
+  { id: 2, title: 'Open', path: '#', selected: false },
+  { id: 3, title: 'Save', path: '#', selected: true },
+  { id: 4, title: 'Export', path: '#', selected: false }
+]
 
 const profileDropdown = [
-  { id: 1, title: "Your Profile", path: "#" },
-  { id: 1, title: "Settings", path: "#" },
-  { id: 1, title: "Sign out", path: "#" },
-];
+  { id: 1, title: 'Your Profile', path: '#' },
+  { id: 1, title: 'Settings', path: '#' },
+  { id: 1, title: 'Sign out', path: '#' }
+]
 
 const Navbar = ({
   navbarElementsArray,
@@ -41,31 +43,33 @@ const Navbar = ({
   setExcelUrl,
   setExcelFilename
 }) => {
-  const [user, setUser] = useState("Lahiru");
-  const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1]);
-  const [selectedElement, setSelectedElement] = useState("");
-  const [profileElements, setProfileElements] = useState(profileDropdown);
-  const [isNavbarLight, setIsNavbarLight] = useState(true);
-  const [subMenuOpen, setSubMenuOpen] = useState(false);
-  const [openModal, setOpen] = useState(true);
-  const [openNewProjectModal, setOpenNewProjectModal] = useState(false);
-  const [openProjectModal, setOpenProjectModal] = useState(false);
-  const [isHomePage, setIsHomePage] = useState(false);
+  // const [user, setUser] = useState(null);
+  const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1])
+  const [selectedElement, setSelectedElement] = useState('')
+  const [profileElements, setProfileElements] = useState(profileDropdown)
+  const [isNavbarLight, setIsNavbarLight] = useState(true)
+  const [subMenuOpen, setSubMenuOpen] = useState(false)
+  const [openModal, setOpen] = useState(true)
+  const [openNewProjectModal, setOpenNewProjectModal] = useState(false)
+  const [openProjectModal, setOpenProjectModal] = useState(false)
+  const [isHomePage, setIsHomePage] = useState(false)
 
-  const [displayProjectName, setDisplayProjectName] =
-    useState("Open A Project");
+  const { user } = useAuthContext()
+  const { signout } = useSignOut()
+
+  const [displayProjectName, setDisplayProjectName] = useState('Open A Project')
 
   useEffect(() => {
-    setNavbarElements(navbarElementsArray[1]);
+    setNavbarElements(navbarElementsArray[1])
 
-    if (navbarElementsArray[0] == "home") {
-      setIsHomePage(true);
+    if (navbarElementsArray[0] === 'home') {
+      setIsHomePage(true)
     } else {
-      setIsHomePage(false);
+      setIsHomePage(false)
     }
 
-    setSelectedElement("");
-  }, [navbarElementsArray]);
+    setSelectedElement('')
+  }, [navbarElementsArray])
 
   // useEffect(() => {
   //   setDisplayProjectName(projectName)
@@ -73,69 +77,71 @@ const Navbar = ({
 
   const onScroll = () => {
     if (window.scrollY >= window.screen.height - 200) {
-      setIsNavbarLight(false);
+      setIsNavbarLight(false)
     } else {
-      setIsNavbarLight(true);
+      setIsNavbarLight(true)
     }
-  };
-  window.addEventListener("scroll", onScroll);
+  }
+  window.addEventListener('scroll', onScroll)
 
   const onSubMenuHovered = () => {
-    console.log("called here");
-    setSubMenuOpen((prev) => !prev);
-  };
+    setSubMenuOpen(prev => !prev)
+  }
 
   // checking navbar items
-  const onItemClick = (item) => {
-    setSelectedElement(item.id);
-    if (item.title === "Open") {
-      setOpenProjectModal(true);
+  const onItemClick = item => {
+    setSelectedElement(item.id)
+    if (item.title === 'Open') {
+      setOpenProjectModal(true)
     }
-    if (item.title === "Export") {
-      excelUrl ? downloadSpreadsheet() : alert("Please Open a Project Before Exporting...")
-    } 
-  };
+    if (item.title === 'Export') {
+      excelUrl
+        ? downloadSpreadsheet()
+        : alert('Please Open a Project Before Exporting...')
+    }
+    if (item.title === 'Share') {
+      alert("Sharing Projects Coming Soon!")
+    }
+  }
 
   // checking sub item of 'New'
-  const onNewItemsClick = (subItem) => {
-    if (subItem.title == "Project") {
-      console.log(subItem);
-      setOpenNewProjectModal(true);
+  const onNewItemsClick = subItem => {
+    if (subItem.title === 'Project') {
+      console.log(subItem)
+      setOpenNewProjectModal(true)
     }
-  };
+  }
 
   const downloadSpreadsheet = () => {
     fetch(excelUrl, {
-        method: 'GET',
-        headers: {
-        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        },
+      method: 'GET',
+      headers: {
+        'Content-Type':
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      }
     })
-    .then((response) => response.blob())
-    .then((blob) => {
+      .then(response => response.blob())
+      .then(blob => {
         // Create blob link to download
-        const url = window.URL.createObjectURL(
-        new Blob([blob]),
-        );
-        const link = document.createElement('a');
-        link.href = url;
+        const url = window.URL.createObjectURL(new Blob([blob]))
+        const link = document.createElement('a')
+        link.href = url
         link.setAttribute(
-        'download',
-        `${excelFilename}`
-        // `${projectData.project_name}_${levelData.floor_no}_${elementData.element_name}.xlsx`,
-        );
+          'download',
+          `${excelFilename}`
+          // `${projectData.project_name}_${levelData.floor_no}_${elementData.element_name}.xlsx`,
+        )
 
         // Append to html link element page
-        document.body.appendChild(link);
+        document.body.appendChild(link)
 
         // Start download
-        link.click();
+        link.click()
 
         // Clean up and remove the link
-        link.parentNode.removeChild(link);
-    });
-
-}
+        link.parentNode.removeChild(link)
+      })
+  }
 
   return (
     <>
@@ -144,10 +150,10 @@ const Navbar = ({
         // className="fixed w-full top-0 z-30 bg-opacity-70 bg-yellow-600 dark:bg-secondary-gray600 shadow"
 
         className={classNames(
-          isNavbarLight == true && navbarElementsArray[0] == "home"
-            ? "bg-primary-yellow2_500 bg-opacity-50 text-gray-100 dark:bg-opacity-50 dark:bg-secondary-gray600 "
-            : "bg-opacity-90 bg-primary-yellow2_500 text-gray-600 dark:text-gray-100 dark:bg-secondary-gray600 ",
-          "fixed w-full top-0 z-30 shadow transition ease-in-out delay-100 duration-200"
+          isNavbarLight === true && navbarElementsArray[0] === 'home'
+            ? 'bg-primary-yellow2_500 bg-opacity-50 text-gray-100 dark:bg-opacity-50 dark:bg-secondary-gray600 '
+            : 'bg-opacity-90 bg-primary-yellow2_500 text-gray-600 dark:text-gray-100 dark:bg-secondary-gray600 ',
+          'fixed w-full top-0 z-30 shadow transition ease-in-out delay-100 duration-200'
         )}
       >
         {({ open }) => (
@@ -174,7 +180,7 @@ const Navbar = ({
                     </Disclosure.Button>
                   </div>
                   <div className="flex-shrink-0 flex items-center">
-                    <Link to={"/"}>
+                    <Link to={'/'}>
                       <img
                         className="lg:block h-16 md:h-[4.5rem] w-auto"
                         src={MOA_Horizontal_Logo}
@@ -191,15 +197,15 @@ const Navbar = ({
                           <div
                             key={element.id}
                             className={classNames(
-                              selectedElement == element.id
-                                ? "border-b-4 border-gray-500 dark:border-b-2 dark:border-primary-yellow2_500"
-                                : "hover:border-b-2 hover:border-gray-700 dark:hover:border-gray-300 ",
-                              "inline-flex items-center px-1 pt-1 text-sm font-medium cursor-pointer"
+                              selectedElement === element.id
+                                ? 'border-b-4 border-gray-500 dark:border-b-2 dark:border-primary-yellow2_500'
+                                : 'hover:border-b-2 hover:border-gray-700 dark:hover:border-gray-300 ',
+                              'inline-flex items-center px-1 pt-1 text-sm font-medium cursor-pointer'
                             )}
                             onClick={() => {
                               // setSelectedElement(element.id);
-                              onItemClick(element);
-                              setScrollTo(element.scrollTo);
+                              onItemClick(element)
+                              setScrollTo(element.scrollTo)
                             }}
                           >
                             {/* rendering subItems from the navbar */}
@@ -237,9 +243,9 @@ const Navbar = ({
                                                 <div
                                                   className={classNames(
                                                     active
-                                                      ? "bg-gray-100 dark:bg-transparent"
-                                                      : "",
-                                                    "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 hover:rounded-md dark:text-gray-300 dark:hover:bg-gray-700"
+                                                      ? 'bg-gray-100 dark:bg-transparent'
+                                                      : '',
+                                                    'block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 hover:rounded-md dark:text-gray-300 dark:hover:bg-gray-700'
                                                   )}
                                                   onClick={() =>
                                                     onNewItemsClick(subItem)
@@ -249,17 +255,17 @@ const Navbar = ({
                                                 </div>
                                               )}
                                             </Menu.Item>
-                                          );
+                                          )
                                         })}
                                     </Menu.Items>
                                   </Transition>
                                 </Menu>
                               </div>
-                            ) : ( 
-                            <Link to={element.path}>{element.title}</Link>
+                            ) : (
+                              <Link to={element.path}>{element.title}</Link>
                             )}
                           </div>
-                        );
+                        )
                       })}
                   </div>
 
@@ -279,17 +285,19 @@ const Navbar = ({
                   {/* modal - end */}
                 </div>
                 <div className="flex items-center">
-                {user && <div className="flex-shrink-0">
-                    <Link to={"/viewer"}>
-                      <button
-                        type="button"
-                        className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
+                  {user && (
+                    <div className="flex-shrink-0">
+                      <Link to={'/viewer'}>
+                        <button
+                          type="button"
+                          className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
                           dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
-                      >
-                        <span>Viewer</span>
-                      </button>
-                    </Link>
-                  </div>}
+                        >
+                          <span>Viewer</span>
+                        </button>
+                      </Link>
+                    </div>
+                  )}
                   {user ? (
                     <>
                       <div className="md:ml-4 md:flex-shrink-0 md:flex md:items-center">
@@ -299,7 +307,8 @@ const Navbar = ({
                               <span className="sr-only">Open user menu</span>
                               <img
                                 className="h-8 w-8 md:h-9 md:w-9 rounded-full ring-2 ring-amber-300 ring-offset-1 ring-offset-gray-400 dark:ring-amber-500"
-                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                // src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
                                 alt=""
                               />
                             </Menu.Button>
@@ -314,6 +323,13 @@ const Navbar = ({
                             leaveTo="transform opacity-0 scale-95"
                           >
                             <Menu.Items className=" origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-secondary-gray600 dark:ring-gray-500">
+                              <Menu.Item>
+                                {/* Display Username */}
+                                <div className='block px-4 py-2 text-base text-gray-700 dark:text-gray-300'>
+                                  Hello, <b>{user.name}</b>
+                                  <br/>
+                                </div>
+                              </Menu.Item>
                               {profileElements &&
                                 profileElements.map((element, idx) => {
                                   return (
@@ -323,16 +339,20 @@ const Navbar = ({
                                           href="#"
                                           className={classNames(
                                             active
-                                              ? "bg-gray-100 dark:bg-transparent"
-                                              : "",
-                                            "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 dark:text-gray-300 dark:hover:bg-gray-700"
+                                              ? 'bg-gray-100 dark:bg-transparent'
+                                              : '',
+                                            'block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 dark:text-gray-300 dark:hover:bg-gray-700'
                                           )}
+                                          onClick={() => {
+                                            element.title === 'Sign out' &&
+                                              signout()
+                                          }}
                                         >
                                           {element.title}
                                         </a>
                                       )}
                                     </Menu.Item>
-                                  );
+                                  )
                                 })}
                             </Menu.Items>
                           </Transition>
@@ -342,20 +362,16 @@ const Navbar = ({
                   ) : (
                     <>
                       <div className="flex-shrink-0">
-                        <Link to={"/viewer"}>
+                        <Link to={'/viewer'}>
                           <button
                             type="button"
                             className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
                           dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
-                            onClick={() => {
-                              setUser("Lahiru");
-                            }}
+                            // onClick={() => {
+                            //   setUser("Lahiru");
+                            // }}
                           >
-                            <PlusSmallIcon
-                            className="-ml-1 mr-2 h-5 w-5"
-                            aria-hidden="true"
-                          />
-                            <span>Sign Up</span>
+                            <span>Sign In</span>
                           </button>
                         </Link>
                       </div>
@@ -376,7 +392,7 @@ const Navbar = ({
                   {isHomePage && (
                     <div>
                       <div className="md:hidden flex flex-shrink-0">
-                        <Link to={"/viewer"} className={"w-full mx-4"}>
+                        <Link to={'/viewer'} className={'w-full mx-4'}>
                           <button
                             type="button"
                             className="relative w-full inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
@@ -397,15 +413,15 @@ const Navbar = ({
                           <Disclosure.Button
                             as="a"
                             className={classNames(
-                              selectedElement == element.id
-                                ? "border-l-4 bg-primary-yellow100 border-primary-yellow300 text-amber-700 block mr-2 rounded-md dark:bg-gray-500 dark:text-gray-200"
-                                : "border-transparent mr-2 rounded-md text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300",
-                              "block pl-3 pr-4 py-2 ml-1 text-base font-medium sm:pl-5 sm:pr-6"
+                              selectedElement === element.id
+                                ? 'border-l-4 bg-primary-yellow100 border-primary-yellow300 text-amber-700 block mr-2 rounded-md dark:bg-gray-500 dark:text-gray-200'
+                                : 'border-transparent mr-2 rounded-md text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300',
+                              'block pl-3 pr-4 py-2 ml-1 text-base font-medium sm:pl-5 sm:pr-6'
                             )}
                             onClick={() => {
                               // setSelectedElement(element.id);
-                              onItemClick(element);
-                              setScrollTo(element.scrollTo);
+                              onItemClick(element)
+                              setScrollTo(element.scrollTo)
                             }}
                           >
                             {/* rendering subItems from the navbar */}
@@ -444,9 +460,9 @@ const Navbar = ({
                                                   href="#"
                                                   className={classNames(
                                                     active
-                                                      ? "bg-gray-100 dark:bg-transparent"
-                                                      : "",
-                                                    "block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 hover:rounded-md dark:text-gray-300 dark:hover:bg-gray-700"
+                                                      ? 'bg-gray-100 dark:bg-transparent'
+                                                      : '',
+                                                    'block px-4 py-2 text-sm text-gray-700 hover:bg-primary-yellow100 hover:rounded-md dark:text-gray-300 dark:hover:bg-gray-700'
                                                   )}
                                                   onClick={() =>
                                                     onNewItemsClick(subItem)
@@ -456,7 +472,7 @@ const Navbar = ({
                                                 </a>
                                               )}
                                             </Menu.Item>
-                                          );
+                                          )
                                         })}
                                     </Menu.Items>
                                   </Transition>
@@ -467,7 +483,7 @@ const Navbar = ({
                             )}
                           </Disclosure.Button>
                         </Link>
-                      );
+                      )
                     })}
                 </div>
               </div>
@@ -478,7 +494,7 @@ const Navbar = ({
       {/* new project modal */}
       {/* <NewProjectModal /> */}
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

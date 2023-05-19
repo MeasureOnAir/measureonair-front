@@ -32,6 +32,7 @@ const canvasNavbarElementsArray = [
   },
   { id: 2, title: "Open", path: "#", scrollTo: '', selected: false },
   { id: 3, title: "Export", path: "#", scrollTo: '', selected: false },
+  { id: 4, title: "Share", path: "#", scrollTo: '', selected: false },
 ];
 
 function App() {
