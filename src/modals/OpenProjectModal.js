@@ -81,7 +81,8 @@ const OpenProjectModal = ({ openProjectModal, setOpenProjectModal, setProjectAtt
             console.log("No Projects Found For The User, Status Code 404", responseData);
             setProjectList([])
           } else {
-            const projectsWithTitle = responseData.map((project) => ({
+            const resTmp =  statusCode === 200 ? response : responseData
+            const projectsWithTitle = resTmp.map((project) => ({
               ...project,
               title: project.name,
             }));
