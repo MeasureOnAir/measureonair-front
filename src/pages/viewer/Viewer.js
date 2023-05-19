@@ -278,6 +278,7 @@ const Viewer = ({
     axios
       .post(`${BACKEND}data/add/markers`, reqBody)
       .then((response) => {
+        console.log("Markers Added")
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -316,7 +317,7 @@ const Viewer = ({
           setDisplayProjectName(
             `${responseData?.project_meta?.name} / ${projectAttrs?.level.id} / ${projectAttrs?.element_id.title}`
           );
-          const level = responseData?.levels[projectAttrs?.level.id - 1];
+          const level = responseData?.levels[projectAttrs?.level.id];
           const element = level?.elements[projectAttrs?.element_id.id];
           if (element?.image !== null) {
             setIsImageAvailable(true);
@@ -580,7 +581,7 @@ const Viewer = ({
         ) : (
           <EmptyView
             project_id={projectAttrs.project_id}
-            level={projectAttrs.level.id - 1}
+            level={projectAttrs.level.id}
             element_id={projectAttrs.element_id.id}
             isReloadViewer={isReloadViewer}
           />
