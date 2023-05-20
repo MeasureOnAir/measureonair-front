@@ -6,8 +6,10 @@ import { Link, useLocation } from 'react-router-dom'
 import MOA_Horizontal_Logo from '../assets/logo/moa-logo-horizontal.svg'
 import NewProjectModal from '../modals/NewProjectModal'
 import OpenProjectModal from '../modals/OpenProjectModal'
+import ShareProjectModal from '../modals/ShareProjectModal'
 import { useAuthContext } from '../hooks/auth/useAuthContext'
 import { useSignOut } from '../hooks/auth/useSignOut'
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -52,6 +54,7 @@ const Navbar = ({
   const [openModal, setOpen] = useState(true)
   const [openNewProjectModal, setOpenNewProjectModal] = useState(false)
   const [openProjectModal, setOpenProjectModal] = useState(false)
+  const [openShareProjectModal, setShareProjectModal] = useState(false)
   const [isHomePage, setIsHomePage] = useState(false)
 
   const { user } = useAuthContext()
@@ -100,7 +103,7 @@ const Navbar = ({
         : alert('Please Open a Project Before Exporting...')
     }
     if (item.title === 'Share') {
-      alert("Sharing Projects Coming Soon!")
+      setShareProjectModal(true)
     }
   }
 
@@ -281,6 +284,11 @@ const Navbar = ({
                     setProjectAttrs={setProjectAttrs}
                     setExcelUrl={setExcelUrl}
                     setExcelFilename={setExcelFilename}
+                  />
+
+                  <ShareProjectModal
+                    openShareProjectModal={openShareProjectModal}
+                    setShareProjectModal={setShareProjectModal}
                   />
                   {/* modal - end */}
                 </div>

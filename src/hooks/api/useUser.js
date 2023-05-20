@@ -80,12 +80,7 @@ const useUser = () => {
     setError(null)
 
     try {
-      const formData = {
-        userId: userId,
-        projectId: projectId
-      }
-
-      const response = await axios.post(`${BACKEND}user/project/add`, formData)
+      const response = await axios.post(`${BACKEND}user/project/add?user_id=${userId}&project_id=${projectId}`)
 
       setSuccess(true)
       setIsLoading(false)
