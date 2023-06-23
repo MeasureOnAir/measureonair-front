@@ -4,7 +4,7 @@ export const useSignOut = () => {
   const { dispatch } = useAuthContext()
   const signout = () => {
     // remove user from storage
-    localStorage.removeItem('user')
+    localStorage.removeItem('user-auth')
 
     // dispatch User
     dispatch({ type: 'SIGNOUT' })
