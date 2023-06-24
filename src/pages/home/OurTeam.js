@@ -1,24 +1,34 @@
 import React from "react";
 
 const people = [
-  {
-    name: "Leonard Krasner",
-    role: "Senior Designer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
-  {
-    name: "Leslie Alexander",
-    role: "Co-Founder / CEO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
+    {
+      name: "Ishini Saparamadu",
+      role: "Founder / CEO",
+      imageUrl:
+      // "https://i.ibb.co/thpqckT/Ishini-Portrait.jpg",
+        "https://media.licdn.com/dms/image/C5603AQHBx_5yrzzsdA/profile-displayphoto-shrink_800_800/0/1662277395338?e=2147483647&v=beta&t=VktnMtA1DMYUTuGnsEg3K8FBgxccabvawtmtXZnQeJw",
+      bio: "I am an energetic and self-driven person who is interested about Quantity Surveying, Construction Contract Management and full stack development.",
+      twitterUrl: "#",
+      linkedinUrl: "https://www.linkedin.com/in/ishini-saparamadu-a8b6a31bb",
+    },
+  // {
+  //   name: "Leonard Krasner",
+  //   role: "Senior Designer",
+  //   imageUrl:
+  //     "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+  //   bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
+  //   twitterUrl: "#",
+  //   linkedinUrl: "#",
+  // },
+  // {
+  //   name: "Leslie Alexander",
+  //   role: "Co-Founder / CEO",
+  //   imageUrl:
+  //     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+  //   bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
+  //   twitterUrl: "#",
+  //   linkedinUrl: "#",
+  // },
 ];
 
 const OurTeam = () => {

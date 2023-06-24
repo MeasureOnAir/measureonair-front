@@ -29,9 +29,9 @@ const Home = ({ scrollTo }) => {
       <div id="features_id" className="pt-12">
         <Features />
       </div>
-      <div id="ourPartners_id" className="pt-12">
+      {/* <div id="ourPartners_id" className="pt-12">
         <OurPartners />
-      </div>
+      </div> */}
       <div id="aboutUs_id" className="md:pt-0 sm:pt-0 pt-10">
         <AboutUs />
       </div>

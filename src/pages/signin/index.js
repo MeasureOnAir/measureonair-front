@@ -35,6 +35,11 @@ const SigninBase = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        {error!=="" && error && (<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <span class="block font-medium sm:inline">{
+          error.message.replace("Firebase: Error (auth/", "").replace(").", "")
+          }</span>
+        </div>)}
           <form onSubmit={onSubmit}>
             <div>
               <label
@@ -110,7 +115,7 @@ const SigninBase = () => {
             </div>
           </form>
 
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
@@ -173,7 +178,7 @@ const SigninBase = () => {
                 </span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import React from "react";
 
 const stats = [
-  { label: "Founded", value: "2021" },
-  { label: "Employees", value: "5" },
-  { label: "Beta Users", value: "521" },
-  { label: "Raised", value: "$25M" },
+  { label: "Founded", value: "2022" },
+  { label: "Employees", value: "2" },
+  { label: "Beta Users", value: "50+" },
+  // { label: "Raised", value: "$25M" },
 ];
 
 const AboutUs = () => {
@@ -56,7 +56,8 @@ const AboutUs = () => {
               <div className="relative pt-64 pb-10 rounded-2xl shadow-xl overflow-hidden">
                 <img
                   className="absolute inset-0 h-full w-full object-cover"
-                  src="https://images.unsplash.com/photo-1521510895919-46920266ddb3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&fp-x=0.5&fp-y=0.6&fp-z=3&width=1440&height=1440&sat=-100"
+                  // src="https://images.unsplash.com/photo-1521510895919-46920266ddb3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&fp-x=0.5&fp-y=0.6&fp-z=3&width=1440&height=1440&sat=-100"
+                  src="https://i.ibb.co/YWMGVVK/Square-Ishini.jpg"
                   alt=""
                 />
                 <div className="absolute inset-0 bg-primary-yellow200 mix-blend-multiply dark:bg-gray-500" />
@@ -64,8 +65,9 @@ const AboutUs = () => {
                 <div className="relative px-8">
                   <div>
                     <img
-                      className="h-12"
-                      src="https://tailwindui.com/img/logos/workcation.svg?color=white"
+                      className="h-16"
+                      // src="https://tailwindui.com/img/logos/workcation.svg?color=white"
+                      src="https://svgshare.com/i/udR.svg"
                       alt="Workcation"
                     />
                   </div>
@@ -88,7 +90,7 @@ const AboutUs = () => {
 
                     <footer className="mt-4">
                       <p className="ml-3 text-base font-semibold text-yellow-200">
-                        Sarah Williams, CEO at Workcation
+                        Ishini Saparamadu, CEO at MeasureOnAir
                       </p>
                     </footer>
                   </blockquote>
@@ -101,7 +103,7 @@ const AboutUs = () => {
             {/* Content area */}
             <div className="pt-12 sm:pt-16 lg:pt-20">
               <h2 className="text-3xl text-gray-900 font-extrabold tracking-tight sm:text-4xl dark:text-gray-200">
-                On a mission to empower teams
+              We make Technology work for Construction
               </h2>
               <div className="mt-6 text-gray-500 space-y-6 dark:text-gray-300">
                 <p className="text-lg">
