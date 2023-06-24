@@ -9,7 +9,7 @@ const withAuth = (WrappedComponent) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-      const userAny = user || JSON.parse(localStorage.getItem('user'))
+      const userAny = user || JSON.parse(localStorage.getItem('user-auth'))
       if (!userAny) {
         navigate(ROUTE.SIGNIN)
       } 
