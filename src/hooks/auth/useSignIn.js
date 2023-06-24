@@ -55,7 +55,7 @@ export const useSignIn = () => {
         console.log("userDB", userData)
 
         // save the user to local storage
-        localStorage.setItem('user', JSON.stringify(userData))
+        localStorage.setItem('user-auth', JSON.stringify(userData))
 
         dispatch({ type: 'SIGNIN', payload: userData })
         setIsLoading(false)
