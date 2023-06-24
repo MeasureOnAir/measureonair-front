@@ -108,8 +108,7 @@ const Footer = () => {
                 alt="Company name"
               />
               <p className="text-gray-600 dark:text-gray-400 text-base">
-                Making the world a better place through constructing elegant
-                hierarchies.
+                We make Technology work for Construction
               </p>
               <div className="flex space-x-6">
                 {navigation.social.map((item) => (

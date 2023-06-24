@@ -1,7 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import ShowDemoModal from "../../modals/ShowDemoModal";
 
 const HeroSection = () => {
+
+  const [openShowDemoModal, setOpenShowDemoModal] = useState(false)
+
   return (
     <div>
       <main>
@@ -37,14 +41,24 @@ const HeroSection = () => {
                   </p>
                   <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                     <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:gap-5">
-                      <Link
-                        to ="/viewer"
-                        // className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8 dark:bg-primary-yellow200 dark:bg-opacity-70 dark:hover:bg-opacity-80"
-                        className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8
-                         dark:bg-primary-yellow200 dark:bg-opacity-80 dark:hover:text-gray-800 dark:hover:bg-opacity-100"
-                      >
-                        Get started
-                      </Link>
+                      <span className="flex items-center justify-center px-4 py-3 text-base font-medium rounded-md shadow-sm text-white sm:px-8">
+                        <Link
+                          to ="/viewer"
+                          // className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8 dark:bg-primary-yellow200 dark:bg-opacity-70 dark:hover:bg-opacity-80"
+                          className="flex mx-4 px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8
+                          dark:bg-primary-yellow200 dark:bg-opacity-80 dark:hover:text-gray-800 dark:hover:bg-opacity-100"
+                        >
+                          Get started
+                        </Link>
+                        <Link
+                          onClick={() => setOpenShowDemoModal(true)}
+                          // className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8 dark:bg-primary-yellow200 dark:bg-opacity-70 dark:hover:bg-opacity-80"
+                          className="flex mx-4 px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-yellow300 bg-opacity-60 hover:bg-opacity-70 sm:px-8
+                          dark:bg-primary-yellow200 dark:bg-opacity-80 dark:hover:text-gray-800 dark:hover:bg-opacity-100"
+                        >
+                          Demo Video &#9658;
+                        </Link>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -56,6 +70,10 @@ const HeroSection = () => {
           </div>
         </div>
       </main>
+      <ShowDemoModal
+        openShowDemoModal={openShowDemoModal}
+        setOpenShowDemoModal={setOpenShowDemoModal}
+      />
     </div>
   );
 };

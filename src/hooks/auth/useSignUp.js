@@ -56,7 +56,7 @@ export const useSignUp = () => {
       await createUser(user.uid, user.email, username)
 
       // save the user to local storage
-      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem('user-auth', JSON.stringify(user))
 
       // update the auth context
       dispatch({ type: 'SIGNIN', payload: user })

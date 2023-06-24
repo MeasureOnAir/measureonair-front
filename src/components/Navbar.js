@@ -45,7 +45,6 @@ const Navbar = ({
   setExcelUrl,
   setExcelFilename
 }) => {
-  // const [user, setUser] = useState(null);
   const [navbarElements, setNavbarElements] = useState(navbarElementsArray[1])
   const [selectedElement, setSelectedElement] = useState('')
   const [profileElements, setProfileElements] = useState(profileDropdown)
@@ -375,9 +374,6 @@ const Navbar = ({
                             type="button"
                             className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-yellow100 bg-primary-yellow200 shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 
                           dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:hover:bg-opacity-90 dark:bg-primary-yellow200 dark:text-gray-700"
-                            // onClick={() => {
-                            //   setUser("Lahiru");
-                            // }}
                           >
                             <span>Sign In</span>
                           </button>

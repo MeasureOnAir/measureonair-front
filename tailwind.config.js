@@ -5,6 +5,13 @@ module.exports = {
     extend: {
       colors: {
         primary: {
+          // black900: "#040303",
+          // red600: "#A13333",
+          // red900: "#461111",
+          // gray500: '#3f3e43',
+          // gray600: '#2c2c30',
+          // gray700: '#242426',
+          // gray800: "#1f1e1f",
           yellow100: "#FEFFDB",
           yellow200: "#FFC60B",
           yellow300: "#FF8B00",
@@ -36,3 +43,4 @@ module.exports = {
     require('tailwind-scrollbar')
   ],
 };
+
