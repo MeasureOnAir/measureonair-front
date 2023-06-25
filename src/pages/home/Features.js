@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { CheckIcon, ClockIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import React from "react";
 import Tape from '../../assets/features/tape.png'
 import Plan from '../../assets/features/plan.png'
 import Spreadsheet from '../../assets/features/spreadsheet.png'
@@ -10,9 +9,11 @@ const featuresArray = [
     id: 1,
     path: "/",
     title: 'View Building Plans Easily',
-    description:
-      "With our intuitive web application feature, you can effortlessly access and view your uploaded project plans from anywhere, at any time." +
-      "Whether you're in the office or on the go, stay connected to your project with ease. Seamlessly scroll, zoom in, and zoom out using your laptop trackpad or simply use your fingertips on touch-enabled devices.",
+    description: [
+      "Effortlessly access and view your uploaded project plans from anywhere, at any time",
+      "Whether you're in the office or on the go, stay connected to your project",
+      "Seamlessly scroll, zoom in, and zoom out Using your laptop trackpad or Use your fingertips on touch-enabled devices"
+    ],
     // imageSrc:
     //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
     imageSrc: Plan,
@@ -22,11 +23,12 @@ const featuresArray = [
     id: 2,
     path: "/",
     title: "Add Different Measures",
-    description:
-      "Our powerful application allows users to efficiently track and mark work progress within their projects." +
-      "With just a few clicks, you can easily insert pins, shade areas, or draw lines directly on the project plan." +
-      "These interactive objects are fully scrollable, ensuring a seamless user experience." +
-      "Take it a step further by adding relevant measurements, annotations, or notes to these objects, providing a comprehensive overview of the work status",
+    description: [
+      "Efficiently track and mark work progress within their projects",
+      "Easily insert pins, shade areas, or draw lines directly on drawings",
+      "Fully scrollable interactive objects",
+      "Add relevant measurements, annotations, or notes to these objects, providing a comprehensive overview of the work status."
+    ],
     // imageSrc:
     //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
     imageSrc: Tape,
@@ -36,10 +38,11 @@ const featuresArray = [
     id: 3,
     path: "/",
     title: "Generate Spreadsheet Automatically",
-    description:
-      "By leveraging the data from pins, lines, and shaded areas inserted on the project plan, our application generates an Excel sheet with accurate measurements." +
-      "The generated measurement sheet is formatted correctly and automatically performs calculations for you." +
-      "Each measurement entry is conveniently linked to the corresponding object ID, allowing you to easily trace back to the plan for reference and verification.",
+    description:[
+      "By leveraging the data from pins, lines, and shaded areas inserted on drawings, our application generates Measurement Sheets ",
+      "Formatted correctly and automatically performs calculations for you",
+      "Each measurement entry is conveniently linked to the corresponding object ID."
+    ],
     // imageSrc:
     //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
     imageSrc: Spreadsheet,
@@ -57,13 +60,46 @@ const Features = () => {
         <h2 className="mx-4 mt-11 mb-8 text-3xl font-extrabold tracking-normal sm:text-4xl text-gray-900 dark:text-gray-200">
           Features
         </h2>
-        <ul role="list" className="">
+          <ul className="">
           {features.map((feature, featureIdx) => (
             <li
               key={feature.id}
               className="flex py-4 px-1 sm:py-6 m-3 my-5 rounded-lg bg-gray-100 dark:bg-secondary-gray700 shadow-lg"
             >
-              {featureIdx % 2 === 0 ? (
+                              <>
+                  <div className="grid justify-center items-center flex-shrink-0">
+                    <img
+                      src={feature.imageSrc}
+                      alt={feature.imageAlt}
+                      className="w-28 h-28 rounded-md object-center object-contain sm:w-48 sm:h-48"
+                    />
+                  </div>
+
+                  <div className="ml-4 flex-1 flex ">
+                    <div className="relative grid justify-center items-center">
+                      <div>
+                        <h3 className="text-center">
+                          <div
+                            className="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-200 "
+                          >
+                            {feature.title}
+                          </div>
+                        </h3>
+
+                        <div className="mt-1 text-center">
+                            {feature.description.map(
+                                    (description, descriptionIdx) => (
+                                      <p className="text-base sm:text-base text-gray-500 dark:text-gray-300">
+                                        {"◆ "}&nbsp;{description}
+                                      </p>
+                                    )
+                              )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              {/* {featureIdx % 2 === 0 ? (
                 <>
                   <div className="grid justify-center items-center flex-shrink-0">
                     <img
@@ -85,9 +121,14 @@ const Features = () => {
                         </h3>
 
                         <div className="mt-1 text-center">
-                          <p className="text-base sm:text-base text-gray-500 dark:text-gray-300">
-                            {feature.description}
-                          </p>
+                            {feature.description.map(
+                                    (description, descriptionIdx) => (
+                                      // <p className="text-base sm:text-base text-gray-500 dark:text-gray-300">
+                                      <p className="text-sm sm:text-base text-gray-500 dark:text-gray-300">
+                                        {"◆ "}&nbsp;{description}
+                                      </p>
+                                    )
+                              )}
                         </div>
                       </div>
                     </div>
@@ -108,9 +149,13 @@ const Features = () => {
                         </h3>
 
                         <div className="mt-1 flex  text-center">
-                          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-300">
-                            {feature.description}
-                          </p>
+                          {feature.description.map(
+                                    (description, descriptionIdx) => (
+                                      <p className="text-sm sm:text-base text-gray-500 dark:text-gray-300">
+                                        {"◆ "}&nbsp;{description}
+                                      </p>
+                                    )
+                              )}
                         </div>
                       </div>
                     </div>
@@ -123,7 +168,7 @@ const Features = () => {
                     />
                   </div>
                 </>
-              )}
+              )} */}
             </li>
           ))}
         </ul>
@@ -141,7 +186,7 @@ const Features = () => {
             {features.map((feature) => (
               <div className="grid justify-center">
               <div key={feature.id} className="relative group">
-                <div className="aspect-w-4 aspect-h-3 py-4 w-72 grid justify-center rounded-lg overflow-hidden bg-gray-100 drop-shadow-lg dark:bg-secondary-gray700">
+                <div className="aspect-w-4 aspect-h-3 py-4 w-72 grid justify-center rounded-lg overflow-hidden bg-gray-100 drop-shadow-lg dark:bg-secondary-gray700" style={{minHeight:"540px"}}>
                   <div className="grid justify-center">
                     <img
                       src={feature.imageSrc}
@@ -155,7 +200,7 @@ const Features = () => {
                     className="flex opacity-70 p-4 group-hover:opacity-100 transition ease-in-out delay-150 duration-300"
                     aria-hidden="true"
                   >
-                    <div className="items-center justify-cente text-base font-medium text-gray-700 z-10 dark:text-gray-200">
+                    <div className="items-center justify-center text-base font-medium text-gray-700 z-10 dark:text-gray-200">
                       <h3 className="text-center">
                         <div className="font-bold">
                           <span
@@ -165,9 +210,16 @@ const Features = () => {
                           {feature.title}
                         </div>
                       </h3>
-                      <p className="text-sm text-center pt-2 dark:text-gray-400">
+                          {feature.description.map(
+                                (description, descriptionIdx) => (
+                                  <p className="text-sm text-left pt-2 dark:text-gray-400">
+                                    {"◆ "}&nbsp;{description}
+                                  </p>
+                                )
+                          )}
+                      {/* <p className="text-sm text-center pt-2 dark:text-gray-400">
                         {feature.description}
-                      </p>
+                      </p> */}
                     </div>
                     {/* gradient for feature card */}
                     <div className="absolute inset-x-0 bottom-0 rounded-lg h-1/2 bg-gradient-to-t from-gray-600 to-transparent opacity-40 dark:from-secondary-gray500" />
