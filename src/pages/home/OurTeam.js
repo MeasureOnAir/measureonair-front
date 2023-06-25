@@ -7,12 +7,12 @@ const people = [
       imageUrl:
       // "https://i.ibb.co/thpqckT/Ishini-Portrait.jpg",
         "https://media.licdn.com/dms/image/C5603AQHBx_5yrzzsdA/profile-displayphoto-shrink_800_800/0/1662277395338?e=2147483647&v=beta&t=VktnMtA1DMYUTuGnsEg3K8FBgxccabvawtmtXZnQeJw",
-      bio: "I am an energetic and self-driven person who is interested about Quantity Surveying, Construction Contract Management and full stack development.",
-      twitterUrl: "#",
+      bio: ["Bsc(Hons) in Quantity Surveying", "Robin Jones Award winner under Innovations Category, 2023"],
+      twitterUrl: "https://twitter.com/i_Saparamadu",
       linkedinUrl: "https://www.linkedin.com/in/ishini-saparamadu-a8b6a31bb",
     },
   // {
-  //   name: "Leonard Krasner",
+  //   name: "Leonard Krasner", 
   //   role: "Senior Designer",
   //   imageUrl:
   //     "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
@@ -41,9 +41,7 @@ const OurTeam = () => {
               About Us
             </h2>
             <p className="text-xl text-gray-500 dark:text-gray-400">
-              Nulla quam felis, enim faucibus proin velit, ornare id pretium.
-              Augue ultrices sed arcu condimentum vestibulum suspendisse.
-              Volutpat eu faucibus vivamus eget bibendum cras.
+              Welcome to Concolabs, where innovation meets construction excellence. We specialize in providing cutting-edge software solutions designed to transform the way construction businesses operate.
             </p>
           </div>
           <div className="lg:col-span-2">
@@ -70,9 +68,10 @@ const OurTeam = () => {
                           </p>
                         </div>
                         <div className="text-lg">
-                          <p className="text-gray-500 dark:text-gray-300">
-                            {person.bio}
-                          </p>
+                          {person.bio.map((paragraph) => (
+                            <p className="text-gray-500 dark:text-gray-300">{paragraph}</p>
+                          ))
+                          }
                         </div>
                         <ul role="list" className="flex space-x-5">
                           <li>

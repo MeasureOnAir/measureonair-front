@@ -35,9 +35,7 @@ const HeroSection = () => {
                     </span>
                   </h1>
                   <p className="mt-6 max-w-lg mx-auto text-center text-xl text-amber-200 sm:max-w-3xl dark:text-primary-yellow200 dark:opacity-70">
-                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                    qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                    occaecat fugiat aliqua.
+                    Welcome to Concolabs, where innovation meets construction excellence. We specialize in providing cutting-edge software solutions designed to transform the way construction businesses operate.
                   </p>
                   <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                     <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:gap-5">

@@ -2,9 +2,9 @@ import React from "react";
 
 const stats = [
   { label: "Founded", value: "2022" },
-  { label: "Employees", value: "2" },
+  { label: "Projects In Progress", value: "2" },
   { label: "Beta Users", value: "50+" },
-  // { label: "Raised", value: "$25M" },
+  { label: "Deployed Products", value: "1" },
 ];
 
 const AboutUs = () => {
@@ -72,7 +72,7 @@ const AboutUs = () => {
                     />
                   </div>
                   <blockquote className="mt-8">
-                    <div className="relative text-lg font-medium text-white md:flex-grow">
+                    {/* <div className="relative text-lg font-medium text-white md:flex-grow">
                       <svg
                         className="absolute top-0 left-0 transform -translate-x-6 -translate-y-2 h-8 w-8 text-white"
                         fill="currentColor"
@@ -82,15 +82,13 @@ const AboutUs = () => {
                         <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
                       </svg>
                       <p className="relative ml-3">
-                        Tincidunt integer commodo, cursus etiam aliquam neque,
-                        et. Consectetur pretium in volutpat, diam. Montes, magna
-                        cursus nulla feugiat dignissim id lobortis amet.
+                        Live fast die young
                       </p>
-                    </div>
+                    </div> */}
 
                     <footer className="mt-4">
                       <p className="ml-3 text-base font-semibold text-yellow-200">
-                        Ishini Saparamadu, CEO at MeasureOnAir
+                        Ishini Saparamadu, Founder of MeasureOnAir
                       </p>
                     </footer>
                   </blockquote>
@@ -107,26 +105,19 @@ const AboutUs = () => {
               </h2>
               <div className="mt-6 text-gray-500 space-y-6 dark:text-gray-300">
                 <p className="text-lg">
-                  Sagittis scelerisque nulla cursus in enim consectetur quam.
-                  Dictum urna sed consectetur neque tristique pellentesque.
-                  Blandit amet, sed aenean erat arcu morbi. Cursus faucibus nunc
-                  nisl netus morbi vel porttitor vitae ut. Amet vitae fames
-                  senectus vitae.
+                  Welcome to Concolabs: Empowering Construction Industry with Software Solutions. 
+                  Explore our innovative software solutions designed to revolutionize the way construction businesses operate. 
+                  Streamline your processes, enhance efficiency, and stay ahead of the competition with our cutting-edge technology.
                 </p>
                 <p className="text-base leading-7">
-                  Sollicitudin tristique eros erat odio sed vitae, consequat
-                  turpis elementum. Lorem nibh vel, eget pretium arcu vitae.
-                  Eros eu viverra donec ut volutpat donec laoreet quam urna.
-                  Sollicitudin tristique eros erat odio sed vitae, consequat
-                  turpis elementum. Lorem nibh vel, eget pretium arcu vitae.
-                  Eros eu viverra donec ut volutpat donec laoreet quam urna.
+                Discover the Power of Construction-Specific Software
+                Unlock the true potential of your construction projects with our industry-focused software solutions. 
+                From project management and scheduling to cost estimation and collaboration tools, our comprehensive suite of products is tailored to meet the unique needs of the construction industry.              
                 </p>
                 <p className="text-base leading-7">
-                  Rhoncus nisl, libero egestas diam fermentum dui. At quis
-                  tincidunt vel ultricies. Vulputate aliquet velit faucibus
-                  semper. Pellentesque in venenatis vestibulum consectetur nibh
-                  id. In id ut tempus egestas. Enim sit aliquam nec, a. Morbi
-                  enim fermentum lacus in. Viverra.
+                Experience Seamless Integration
+                Our software seamlessly integrates with your existing systems and processes, ensuring a smooth transition and minimal disruption to your operations. 
+                With user-friendly interfaces and intuitive features, our products are designed to be easily adopted and utilized across your organization.
                 </p>
               </div>
             </div>
@@ -151,7 +142,7 @@ const AboutUs = () => {
               <div className="mt-10">
                 <a href="#" className="text-base font-medium text-primary-yellow300 dark:text-primary-yellow200">
                   {" "}
-                  Learn more about how we're changing the world{" "}
+                  Patented innovation: View plans, track progress, and automate measurements in construction.{" "}
                   <span aria-hidden="true">&rarr;</span>{" "}
                 </a>
               </div>
