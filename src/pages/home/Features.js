@@ -27,7 +27,7 @@ const featuresArray = [
       "Efficiently track and mark work progress within their projects",
       "Easily insert pins, shade areas, or draw lines directly on drawings",
       "Fully scrollable interactive objects",
-      "Add relevant measurements, annotations, or notes to these objects, providing a comprehensive overview of the work status."
+      "Add relevant measurements, annotations, or notes to these objects, providing a comprehensive overview of the work status"
     ],
     // imageSrc:
     //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
@@ -39,9 +39,9 @@ const featuresArray = [
     path: "/",
     title: "Generate Spreadsheet Automatically",
     description:[
-      "By leveraging the data from pins, lines, and shaded areas inserted on drawings, our application generates Measurement Sheets ",
+      "By leveraging the data from pins, lines, and shaded areas inserted on drawings, our application generates Measurement Sheets",
       "Formatted correctly and automatically performs calculations for you",
-      "Each measurement entry is conveniently linked to the corresponding object ID."
+      "Each measurement entry is conveniently linked to the corresponding object ID"
     ],
     // imageSrc:
     //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
