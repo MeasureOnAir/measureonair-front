@@ -42,7 +42,7 @@ const ShowDemoModal = ({ openShowDemoModal, setOpenShowDemoModal }) => {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
                 <div className="relative inline-block md:min-w-max md:max-w-8xl md:w-4/5 md:h-96 bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl align-middle transform transition-all sm:my-8 sm:p-6 dark:bg-secondary-gray600" style={{height:"80vh"}}>
-                <ReactPlayer playing={true} controls={true} width="100%" height="100%" url='https://www.youtube.com/watch?v=r_2PRJxCakg' />
+                <ReactPlayer playing={true} controls={true} width="100%" height="100%" url='https://www.youtube.com/watch?v=r_2PRJxCakh' />
                 </div>
             </Transition.Child>
           </div>

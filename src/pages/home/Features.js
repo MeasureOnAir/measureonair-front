@@ -4,55 +4,6 @@ import Tape from '../../assets/features/tape.png'
 import Plan from '../../assets/features/plan.png'
 import Spreadsheet from '../../assets/features/spreadsheet.png'
 
-const products = [
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    price: "$32.00",
-    color: "Sienna",
-    inStock: true,
-    size: "Large",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in sienna.",
-  },
-  {
-    id: 2,
-    name: "Basic Tee",
-    href: "#",
-    price: "$32.00",
-    color: "Black",
-    inStock: false,
-    leadTime: "3–4 weeks",
-    size: "Large",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-02.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-  },
-  {
-    id: 3,
-    name: "Nomad Tumbler",
-    href: "#",
-    price: "$35.00",
-    color: "White",
-    inStock: true,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-03.jpg",
-    imageAlt: "Insulated bottle with white base and black snap lid.",
-  },
-  {
-    id: 4,
-    name: "Nomad Tumbler",
-    href: "#",
-    price: "$25.00",
-    color: "White",
-    inStock: false,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-03.jpg",
-    imageAlt: "Insulated bottle with white base and black snap lid.",
-  },
-];
 
 const featuresArray = [
   {
@@ -60,7 +11,8 @@ const featuresArray = [
     path: "/",
     title: 'View Building Plans Easily',
     description:
-      "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
+      "With our intuitive web application feature, you can effortlessly access and view your uploaded project plans from anywhere, at any time." +
+      "Whether you're in the office or on the go, stay connected to your project with ease. Seamlessly scroll, zoom in, and zoom out using your laptop trackpad or simply use your fingertips on touch-enabled devices.",
     // imageSrc:
     //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
     imageSrc: Plan,
@@ -71,7 +23,10 @@ const featuresArray = [
     path: "/",
     title: "Add Different Measures",
     description:
-      "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
+      "Our powerful application allows users to efficiently track and mark work progress within their projects." +
+      "With just a few clicks, you can easily insert pins, shade areas, or draw lines directly on the project plan." +
+      "These interactive objects are fully scrollable, ensuring a seamless user experience." +
+      "Take it a step further by adding relevant measurements, annotations, or notes to these objects, providing a comprehensive overview of the work status",
     // imageSrc:
     //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
     imageSrc: Tape,
@@ -82,7 +37,9 @@ const featuresArray = [
     path: "/",
     title: "Generate Spreadsheet Automatically",
     description:
-      "This new construction schedule template was designed to provide a very simple way to create a professional-looking road-map for multi-year projects",
+      "By leveraging the data from pins, lines, and shaded areas inserted on the project plan, our application generates an Excel sheet with accurate measurements." +
+      "The generated measurement sheet is formatted correctly and automatically performs calculations for you." +
+      "Each measurement entry is conveniently linked to the corresponding object ID, allowing you to easily trace back to the plan for reference and verification.",
     // imageSrc:
     //   "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
     imageSrc: Spreadsheet,
@@ -91,7 +48,7 @@ const featuresArray = [
 ];
 
 const Features = () => {
-  const [features, setFeatures] = useState(featuresArray);
+  const features = featuresArray;
 
   return (
     <div>
@@ -106,7 +63,7 @@ const Features = () => {
               key={feature.id}
               className="flex py-4 px-1 sm:py-6 m-3 my-5 rounded-lg bg-gray-100 dark:bg-secondary-gray700 shadow-lg"
             >
-              {featureIdx % 2 == 0 ? (
+              {featureIdx % 2 === 0 ? (
                 <>
                   <div className="grid justify-center items-center flex-shrink-0">
                     <img

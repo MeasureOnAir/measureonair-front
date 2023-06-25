@@ -14,7 +14,7 @@ const navbarElementsArray = [
   { id: 1, title: "Features", path: "#", scrollTo: 'features_id',  selected: false },
   { id: 2, title: "About Us", path: "#", scrollTo: 'aboutUs_id', selected: false },
   { id: 3, title: "Our team", path: "#", scrollTo: 'ourTeam_id', selected: true },
-  { id: 4, title: "Our partners", path: "#", scrollTo: 'ourPartners_id', selected: false },
+  // { id: 4, title: "Our partners", path: "#", scrollTo: 'ourPartners_id', selected: false },
 ];
 
 const canvasNavbarElementsArray = [
