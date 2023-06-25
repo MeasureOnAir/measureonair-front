@@ -2,7 +2,7 @@ import React from "react";
 
 const stats = [
   { label: "Founded", value: "2022" },
-  { label: "Projects In Progress", value: "2" },
+  { label: "Projects In Progress", value: "4" },
   { label: "Beta Users", value: "50+" },
   { label: "Deployed Products", value: "1" },
 ];
