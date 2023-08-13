@@ -206,7 +206,7 @@ export default function App({
                 detectAutoPan={false}
                 onClick={handleClick}
               >
-                <svg viewBox={`0 0 1600 1200`}>
+                <svg viewBox={`0 0 1000 1000`}>
                 {/* width={dims.widthW} height={dims.heightW} */}
                   <image
                     // width={dims.widthW}
