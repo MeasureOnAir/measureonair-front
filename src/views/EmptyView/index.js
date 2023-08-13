@@ -1,24 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BACKEND } from '../../constants/endpoints';
 
 const EmptyView = ({project_id, level, element_id, isReloadViewer}) => {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
+  const [fileType, setFileType] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
 
 
   const handleFileChange = (event) => {
+    event.preventDefault();
     setFile(event.target.files[0]);
+  };
+
+  useEffect(() => {
+    // Determine the file type
+    if(file){
+      if (file.type === 'application/pdf') {
+        setFileType('pdf');
+      } else if (
+        file.type === 'image/png' ||
+        file.type === 'image/jpeg'
+      ) {
+        setFileType('image');
+      } else {
+        setFileType(null);
+      }
+    }
+  }, [file]);
+
+  const handlePageNumberChange = (event) => {
+    setPageNumber(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!file || !fileType) return;   
     setIsLoading(true)
     const formData = new FormData();
     formData.append('file', file);
 
     try {
-      const { data } = await axios.post(`${BACKEND}data/add/image/?project_id=${[project_id]}&level=${level}&element=${element_id}`, formData);
+      await axios.post(`${BACKEND}data/add/image/?project_id=${[project_id]}&level=${level}&element=${element_id}&page_number=${pageNumber}`, formData);
       setIsLoading(false)
       isReloadViewer()
     } catch (error) {
@@ -29,7 +53,7 @@ const EmptyView = ({project_id, level, element_id, isReloadViewer}) => {
 
   return (
     <div className="bg-gray-200 min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-xs">
+      <div className="w-full max-w-lg">
         <h1 className="text-center text-xl font-bold mb-4">
           No Image Found! Upload an Image to Continue
         </h1>
@@ -43,10 +67,26 @@ const EmptyView = ({project_id, level, element_id, isReloadViewer}) => {
             </label>
             <input
               type="file"
-              accept="image/*"
+              // accept="image/*"
+              accept=".pdf,.png,.jpg,.jpeg"
               onChange={handleFileChange}
               className="block appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
+            {fileType === 'pdf' && (
+              <div>
+              <br/>
+              <label className="block text-gray-700 font-bold mb-2">
+                Select the page number:
+              </label>
+              <input
+                type="number"
+                min="1"
+                value={pageNumber}
+                onChange={handlePageNumberChange}
+                className="block appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              </div>
+            )}
           </div>
           {!file && (
             <p className="text-center text-red-600 text-sm mb-4">
